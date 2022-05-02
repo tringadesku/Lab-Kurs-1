@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Hospital_Management_System.Models
 {
@@ -13,8 +14,11 @@ namespace Hospital_Management_System.Models
 
         public string RoomNr { get; set; } = null!;
         public int NrPacientave { get; set; }
-
+       
+	    [JsonIgnore]
         public virtual ICollection<ActivityLogDhomaSalla> ActivityLogDhomaSallas { get; set; }
+		
+		[JsonIgnore]
         public virtual ICollection<Operacioni> Operacionis { get; set; }
     }
 }
