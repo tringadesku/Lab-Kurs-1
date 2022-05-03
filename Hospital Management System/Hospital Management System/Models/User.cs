@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Hospital_Management_System.Models
 {
@@ -27,16 +28,28 @@ namespace Hospital_Management_System.Models
         public string? Password { get; set; }
         public string Nrtelefonit { get; set; } = null!;
 
-        
+
+        [JsonIgnore]
         public virtual ICollection<ActivityLogDhomaSalla> ActivityLogDhomaSallas { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<ActivityLogUser> ActivityLogUsers { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Ambulanca> Ambulancas { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Fatura> Faturas { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Infuzionet> Infuzionets { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Kontrolla> Kontrollas { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Laboratori> Laboratoris { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Operacioni> Operacionis { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Praktikanti> Praktikantis { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Terminet> Terminets { get; set; }
     }
 }

@@ -13,8 +13,10 @@ namespace Hospital_Management_System.Models
         public string Lloji { get; set; } = null!;
         public DateTime? Ora { get; set; }
 
-        public virtual User? IdInfermieriNavigation { get; set; } = null!
+        [JsonIgnore]
+        public virtual User? IdInfermieriNavigation { get; set; }
 
-        public virtual Pacienti? IdPacientiNavigation { get; set; } = null!
+        [JsonIgnore]
+        public virtual Pacienti? IdPacientiNavigation { get; set; }
     }
 }
