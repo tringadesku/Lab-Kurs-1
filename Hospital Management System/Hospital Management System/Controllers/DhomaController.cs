@@ -39,7 +39,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<Dhoma>>> UpdateHero(Dhoma request)
+        public async Task<ActionResult<List<Dhoma>>> Update(Dhoma request)
         {
             var dbDhoma = await _dataContext.Dhomas.FindAsync(request.RoomNr);
             if (dbDhoma == null)

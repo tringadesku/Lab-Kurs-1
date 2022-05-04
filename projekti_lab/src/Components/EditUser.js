@@ -91,32 +91,32 @@ export const EditUser = (props) => {
 
           <div className="mt-4">
             <label className="h3 form-label">Emri</label>
-            <input value={formData.emri}  name="emri" type="text" className="form-control" onChange={handleChange}/>
+            <input value={formData.emri} placeholder={userById.emri} name="emri" type="text" className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">
             <label className="h3 form-label">Mbiemri</label>
-            <input value={formData.mbiemri}  name="mbiemri" type="text" className="form-control" onChange={handleChange}/>
+            <input value={formData.mbiemri} placeholder={userById.mbiemri}  name="mbiemri" type="text" className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">
             <label className="h3 form-label">Pozita</label>
-            <input value={formData.pozita} name="pozita" type="text" className="form-control" onChange={handleChange}/>
+            <input value={formData.pozita} placeholder={userById.pozita} name="pozita" type="text" className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">
             <label className="h3 form-label">Email</label>
-            <input value={formData.email} name="email" type="email" className="form-control" onChange={handleChange}/>
+            <input value={formData.email} placeholder={userById.email} name="email" type="email" className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">
             <label className="h3 form-label">Password</label>
-            <input value={formData.password} name="password" type="password" className="form-control" onChange={handleChange}/>
+            <input value={formData.password} placeholder={userById.password} name="password" type="password" className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">
             <label className="h3 form-label">NrTelefonit</label>
-            <input value={formData.nrtelefonit} name="nrtelefonit" type="text" className="form-control" onChange={handleChange}/>
+            <input value={formData.nrtelefonit} placeholder={userById.nrtelefonit} name="nrtelefonit" type="text" className="form-control" onChange={handleChange}/>
           </div>
 
         <button onClick={handleSubmit} className="btn btn-dark btn-lg w-100 mt-5">Edito</button>

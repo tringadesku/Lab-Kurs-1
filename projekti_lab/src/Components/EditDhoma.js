@@ -7,6 +7,8 @@ export const EditDhoma = (props) => {
   const [dhomaById, setDhomaById] = useState([]);
   const roomNr = (props.match.params.id);
 
+  console.log(props);
+
   function getDhomaById(){
     const url = `https://localhost:7013/api/Dhoma/${roomNr}`;
     fetch(url, {

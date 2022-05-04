@@ -11,6 +11,9 @@ import { EditPacienti } from "./Components/EditPacienti";
 import { Userat } from "./Components/Userat";
 import { AddUser } from "./Components/AddUser";
 import { EditUser } from "./Components/EditUser";
+import { AddInfuzioni } from "./Components/AddInfuzioni";
+import { EditInfuzioni } from "./Components/EditInfuzioni";
+import { Infuzionet } from "./Components/Infuzionet";
 
 
 function App(){
@@ -29,6 +32,9 @@ function App(){
           <Route path="/users" component={Userat}/>
           <Route exact path="/addUser" component={AddUser}/>
           <Route path="/editUser/:id" component={EditUser}/>
+          <Route path="/infuzionet" component={Infuzionet}/>
+          <Route exact path="/addInfuzioni" component={AddInfuzioni}/>
+          <Route path="/editInfuzioni/:id" component={EditInfuzioni}/>
         </Switch>
       </Router>
     </div>
