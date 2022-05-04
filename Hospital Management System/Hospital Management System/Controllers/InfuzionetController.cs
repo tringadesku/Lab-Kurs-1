@@ -39,36 +39,34 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<User>>> UpdateHero(User request)
+        public async Task<ActionResult<List<Infuzionet>>> UpdateInfuzionet(Infuzionet request)
         {
-            var dbUser = await _dataContext.Users.FindAsync(request.IdUser);
-            if (dbUser == null)
-                return BadRequest("User not found!");
+            var dbInfuzioni = await _dataContext.Infuzionets.FindAsync(request.Id);
+            if (dbInfuzioni == null)
+                return BadRequest("Infuzioni not found!");
 
-            dbUser.IdUser = request.IdUser;
-            dbUser.Emri = request.Emri;
-            dbUser.Mbiemri = request.Mbiemri;
-            dbUser.Pozita = request.Pozita;
-            dbUser.Email = request.Email;
-            dbUser.Password = request.Password;
-            dbUser.Nrtelefonit = request.Nrtelefonit;
+            dbInfuzioni.Id = request.Id;
+            dbInfuzioni.IdInfermieri = request.IdInfermieri;
+            dbInfuzioni.IdPacienti = request.IdPacienti;
+            dbInfuzioni.Lloji = request.Lloji;
+            dbInfuzioni.Ora = request.Ora;
 
             await _dataContext.SaveChangesAsync();
 
-            return Ok(await _dataContext.Users.ToListAsync());
+            return Ok(await _dataContext.Infuzionets.ToListAsync());
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<User>>> Delete(int id)
+        public async Task<ActionResult<List<Infuzionet>>> Delete(int id)
         {
-            var dbUser = await _dataContext.Users.FindAsync(id);
-            if (dbUser == null)
-                return BadRequest("User not found!");
+            var dbInfuzioni = await _dataContext.Infuzionets.FindAsync(id);
+            if (dbInfuzioni == null)
+                return BadRequest("Infuzioni not found!");
 
-            _dataContext.Users.Remove(dbUser);
+            _dataContext.Infuzionets.Remove(dbInfuzioni);
             await _dataContext.SaveChangesAsync();
 
-            return Ok(await _dataContext.Users.ToListAsync());
+            return Ok(await _dataContext.Infuzionets.ToListAsync());
         }
     }
 }
