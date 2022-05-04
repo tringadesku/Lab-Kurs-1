@@ -41,6 +41,7 @@ export const Dhomat = () => {
 
   return (
     <div className='table-responsive mt-1 mx-5'>
+      <h3>Dhomat</h3>
     <table className='table table-striped'>
       <thead>
         <tr className="table-success">

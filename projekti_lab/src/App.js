@@ -5,6 +5,9 @@ import {AddDhoma} from './Components/AddDhoma';
 import {EditDhoma} from './Components/EditDhoma';
 import {Nav} from './Components/Nav'
 import { Dhomat } from "./Components/Dhomat";
+import { Pacientat } from "./Components/Pacientat";
+import { AddPacienti } from "./Components/AddPacienti";
+import { EditPacienti } from "./Components/EditPacienti";
 import { Userat } from "./Components/Userat";
 import { AddUser } from "./Components/AddUser";
 import { EditUser } from "./Components/EditUser";
@@ -20,6 +23,9 @@ function App(){
           <Route exact path="/dhomat" component={Dhomat}/>
           <Route exact path="/addDhoma" component={AddDhoma}/>
           <Route path="/editDhoma/:id" component={EditDhoma}/>
+          <Route path="/pacientat" component={Pacientat}/>
+          <Route exact path="/addPacienti" component={AddPacienti}/>
+          <Route path="/editPacienti/:id" component={EditPacienti}/>
           <Route path="/users" component={Userat}/>
           <Route exact path="/addUser" component={AddUser}/>
           <Route path="/editUser/:id" component={EditUser}/>
