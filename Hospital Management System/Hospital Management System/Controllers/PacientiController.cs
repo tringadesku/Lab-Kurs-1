@@ -53,7 +53,6 @@ namespace Hospital_Management_System.Controllers
             dbPacienti.Qyteti = request.Qyteti;
             dbPacienti.EmriRruges= request.EmriRruges;
             dbPacienti.TipiGjakut = request.TipiGjakut;
-            dbPacienti.Alergji = request.Alergji;
             dbPacienti.Nrtelefonit = request.Nrtelefonit;
 
 

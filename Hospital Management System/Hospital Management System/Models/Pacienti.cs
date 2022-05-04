@@ -26,7 +26,6 @@ namespace Hospital_Management_System.Models
         public string Qyteti { get; set; } = null!;
         public string? EmriRruges { get; set; }
         public string TipiGjakut { get; set; } = null!;
-        public bool? Alergji { get; set; }
         public string Nrtelefonit { get; set; } = null!;
 
         [JsonIgnore]

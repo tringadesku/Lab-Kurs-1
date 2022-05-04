@@ -336,8 +336,6 @@ namespace Hospital_Management_System.Models
                     .ValueGeneratedNever()
                     .HasColumnName("ID_Pacienti");
 
-                entity.Property(e => e.Alergji).HasDefaultValueSql("((0))");
-
                 entity.Property(e => e.Ditelindja).HasColumnType("date");
 
                 entity.Property(e => e.Emri)
