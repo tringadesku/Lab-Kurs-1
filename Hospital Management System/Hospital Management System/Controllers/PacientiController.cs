@@ -21,7 +21,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Dhoma>> Get(int id)
+        public async Task<ActionResult<Pacienti>> Get(int id)
         {
             var p = await _dataContext.Pacientis.FindAsync(id);
             if (p == null)
