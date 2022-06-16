@@ -25,6 +25,7 @@ export const AddPacienti = () => {
       qyteti: formData.qyteti,
       emriRruges: formData.emriRruges,
       tipiGjakut: formData.tipiGjakut,
+      alergji: formData.alergji,
       nrtelefonit: formData.nrtelefonit,
     };
 
@@ -57,6 +58,11 @@ export const AddPacienti = () => {
       <div style={{marginRight: "33%"}}>
         <form className="w-100 px-5" action="">
           <h1 className="mt-5">Regjistro Pacient te ri:</h1>
+
+          <div className="mt-4">
+            <label className="h3 form-label">ID</label>
+            <input  name="idPacienti" type="text" className="form-control" onChange={handleChange}/>
+          </div>
 
           <div className="mt-4">
             <label className="h3 form-label">Emri</label>
@@ -96,6 +102,11 @@ export const AddPacienti = () => {
           <div className="mt-4">
             <label className="h3 form-label">Tipi i Gjakut</label>
             <input  name="tipiGjakut" type="text" className="form-control" placeholder='A+/A-/B+/B-/0+/0-/AB+/AB-' onChange={handleChange}/>
+          </div>
+
+          <div className="mt-4">
+            <label className="h3 form-label">Alergji</label>
+            <input  name="alergji" type="text" className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">

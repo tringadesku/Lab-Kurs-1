@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom'
 
 
 export const EditPacienti = (props) => {
-
-  const [pacientiById, setPacientiById] = useState([]);
   const idPacienti = (props.match.params.id);
+  const [formData, setFormData] = useState([]);
 
   function getPacientiById(){
     const url = `https://localhost:7013/api/Pacienti/${idPacienti}`;
@@ -13,9 +12,10 @@ export const EditPacienti = (props) => {
       method: 'GET'
     })
     .then(response => response.json())
-    .then(dhomatFromServer => {
-      console.log(dhomatFromServer);
-      setPacientiById(dhomatFromServer);
+    .then(pacientiFromServer => {
+      console.log(pacientiFromServer);
+      setFormData(pacientiFromServer);
+      
     })
     .catch(error => {
       console.log(error);
@@ -24,20 +24,7 @@ export const EditPacienti = (props) => {
 
   useEffect(getPacientiById,[]);
 
-  const initialFormData = {
-    idPacienti: idPacienti,
-    emri: pacientiById.emri,
-    mbiemri: pacientiById.mbiemri,
-    ditelindja: pacientiById.ditelindja,
-    gjinia: pacientiById.gjinia,
-    shteti: pacientiById.shteti,
-    qyteti: pacientiById.qyteti,
-    emriRruges: pacientiById.emriRruges,
-    tipiGjakut: pacientiById.tipiGjakut,
-    nrtelefonit: pacientiById.nrtelefonit,
-  };
-  
-  const [formData, setFormData] = useState(initialFormData);
+  //console.log(typeof initialFormData.emri);
 
   const handleChange = (e => {
     setFormData({
@@ -59,6 +46,7 @@ export const EditPacienti = (props) => {
       qyteti: formData.qyteti,
       emriRruges: formData.emriRruges,
       tipiGjakut: formData.tipiGjakut,
+      alergji: formData.alergji,
       nrtelefonit: formData.nrtelefonit,
     };
 
@@ -97,47 +85,52 @@ export const EditPacienti = (props) => {
 
           <div className="mt-4">
             <label className="h3 form-label">Emri</label>
-            <input value={formData.emri}  name="emri" type="text" placeholder={pacientiById.emri} className="form-control" onChange={handleChange}/>
+            <input value={formData.emri}  name="emri" type="text" className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">
             <label className="h3 form-label">Mbiemri</label>
-            <input value={formData.mbiemri}  name="mbiemri" type="text" className="form-control" placeholder={pacientiById.mbiemri} onChange={handleChange}/>
+            <input value={formData.mbiemri}  name="mbiemri" type="text" className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">
             <label className="h3 form-label">Ditelindja</label>
-            <input value={formData.ditelindja} name="ditelindja" type="text" placeholder={pacientiById.ditelindja} className="form-control" onChange={handleChange}/>
+            <input value={formData.ditelindja} name="ditelindja" type="text" className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">
             <label className="h3 form-label">Gjinia</label>
-            <input value={formData.gjinia}  name="gjinia" type="text" placeholder={pacientiById.gjinia} className="form-control" onChange={handleChange}/>
+            <input value={formData.gjinia}  name="gjinia" type="text"  className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">
             <label className="h3 form-label">Shteti</label>
-            <input value={formData.shteti}  name="shteti" type="text" className="form-control" placeholder={pacientiById.shteti} onChange={handleChange}/>
+            <input value={formData.shteti}  name="shteti" type="text" className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">
             <label className="h3 form-label">Qyteti</label>
-            <input value={formData.qyteti}  name="qyteti" type="text" className="form-control" placeholder={pacientiById.qyteti} onChange={handleChange}/>
+            <input value={formData.qyteti}  name="qyteti" type="text" className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">
             <label className="h3 form-label">Emri Rruges</label>
-            <input value={formData.emriRruges}  name="emriRruges" type="text" className="form-control" placeholder={pacientiById.emriRruges} onChange={handleChange}/>
+            <input value={formData.emriRruges}  name="emriRruges" type="text" className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">
             <label className="h3 form-label">Tipi i Gjakut</label>
-            <input value={formData.tipiGjakut}  name="tipiGjakut" type="text" className="form-control" placeholder={pacientiById.tipiGjakut} onChange={handleChange}/>
+            <input value={formData.tipiGjakut}  name="tipiGjakut" type="text" className="form-control" onChange={handleChange}/>
+          </div>
+
+          <div className="mt-4">
+            <label className="h3 form-label">Alergji</label>
+            <input value={formData.alergji}  name="alergji" type="text" className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">
             <label className="h3 form-label">NrTelefonit</label>
-            <input value={formData.nrtelefonit} name="nrtelefonit" type="text" className="form-control" placeholder={pacientiById.nrtelefonit} onChange={handleChange}/>
+            <input value={formData.nrtelefonit} name="nrtelefonit" type="text" className="form-control" onChange={handleChange}/>
           </div>
 
         <button onClick={handleSubmit} className="btn btn-dark btn-lg w-100 mt-5">Edito</button>

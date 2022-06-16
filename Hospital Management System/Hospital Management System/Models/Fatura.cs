@@ -11,7 +11,7 @@ namespace Hospital_Management_System.Models
         public string Pershkrimi { get; set; } = null!;
         public DateTime Data { get; set; }
         public decimal PagesaTotale { get; set; }
-        public bool? Paguar { get; set; }
+        public string Statusi { get; set; } = null!;
 
         public virtual Pacienti IdPacientiNavigation { get; set; } = null!;
         public virtual User IdUserRecepsionistiNavigation { get; set; } = null!;

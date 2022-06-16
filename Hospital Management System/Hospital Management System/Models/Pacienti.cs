@@ -26,26 +26,21 @@ namespace Hospital_Management_System.Models
         public string Qyteti { get; set; } = null!;
         public string? EmriRruges { get; set; }
         public string TipiGjakut { get; set; } = null!;
+        public string? Alergji { get; set; }
         public string Nrtelefonit { get; set; } = null!;
 
         [JsonIgnore]
         public virtual ICollection<Fatura> Faturas { get; set; }
-
         [JsonIgnore]
         public virtual ICollection<Infuzionet> Infuzionets { get; set; }
-
         [JsonIgnore]
         public virtual ICollection<Kontrolla> Kontrollas { get; set; }
-
         [JsonIgnore]
         public virtual ICollection<Laboratori> Laboratoris { get; set; }
-
         [JsonIgnore]
         public virtual ICollection<Operacioni> Operacionis { get; set; }
-
         [JsonIgnore]
         public virtual ICollection<Terminet> Terminets { get; set; }
-
         [JsonIgnore]
         public virtual ICollection<TrajtimetMujore> TrajtimetMujores { get; set; }
     }

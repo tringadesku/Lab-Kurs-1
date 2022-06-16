@@ -11,7 +11,8 @@ namespace Hospital_Management_System.Models
         {
         }
 
-        public draft1Context(DbContextOptions<draft1Context> options) : base(options)
+        public draft1Context(DbContextOptions<draft1Context> options)
+            : base(options)
         {
         }
 
@@ -38,7 +39,7 @@ namespace Hospital_Management_System.Models
                 optionsBuilder.UseSqlServer("Server=localhost;Database=draft1;Trusted_Connection=True;");
             }
         }
-        //We override the OnModelCreating method from out derived context and use ModelBuilder API to configure our models
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ActivityLogDhomaSalla>(entity =>
@@ -48,29 +49,18 @@ namespace Hospital_Management_System.Models
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Activity)
-                    .HasMaxLength(30)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.IdUserAdmin).HasColumnName("ID_UserAdmin");
 
-                entity.Property(e => e.Ora).HasColumnType("datetime");
-
-                entity.Property(e => e.RoomNr)
-                    .HasMaxLength(6)
-                    .IsUnicode(false)
-                    .HasColumnName("Room_Nr");
+                entity.Property(e => e.Ora).HasColumnType("smalldatetime");
 
                 entity.HasOne(d => d.IdUserAdminNavigation)
                     .WithMany(p => p.ActivityLogDhomaSallas)
                     .HasForeignKey(d => d.IdUserAdmin)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ActivityL__ID_Us__29221CFB");
-
-                entity.HasOne(d => d.RoomNrNavigation)
-                    .WithMany(p => p.ActivityLogDhomaSallas)
-                    .HasForeignKey(d => d.RoomNr)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ActivityL__Room___2A164134");
+                    .HasConstraintName("FK__ActivityL__ID_Us__6FB49575");
             });
 
             modelBuilder.Entity<ActivityLogUser>(entity =>
@@ -80,24 +70,24 @@ namespace Hospital_Management_System.Models
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Activity)
-                    .HasMaxLength(30)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.IdUserAdmin).HasColumnName("ID_UserAdmin");
 
-                entity.Property(e => e.Ora).HasColumnType("datetime");
+                entity.Property(e => e.Ora).HasColumnType("smalldatetime");
 
                 entity.HasOne(d => d.IdUserAdminNavigation)
                     .WithMany(p => p.ActivityLogUsers)
                     .HasForeignKey(d => d.IdUserAdmin)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ActivityL__ID_Us__2645B050");
+                    .HasConstraintName("FK__ActivityL__ID_Us__6CD828CA");
             });
 
             modelBuilder.Entity<Ambulanca>(entity =>
             {
                 entity.HasKey(e => e.NrAuto)
-                    .HasName("PK__Ambulanc__294DA7F3C22847EE");
+                    .HasName("PK__Ambulanc__294DA7F3EB9571F0");
 
                 entity.ToTable("Ambulanca");
 
@@ -111,19 +101,21 @@ namespace Hospital_Management_System.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Statusi).HasDefaultValueSql("((0))");
+                entity.Property(e => e.Statusi)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.IdUserMjekuLiderNavigation)
                     .WithMany(p => p.Ambulancas)
                     .HasForeignKey(d => d.IdUserMjekuLider)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Ambulanca__ID_Us__1AD3FDA4");
+                    .HasConstraintName("FK__Ambulanca__ID_Us__6166761E");
             });
 
             modelBuilder.Entity<Dhoma>(entity =>
             {
                 entity.HasKey(e => e.RoomNr)
-                    .HasName("PK__Dhoma__19EF8181212A546A");
+                    .HasName("PK__Dhoma__19EF81817542FA08");
 
                 entity.ToTable("Dhoma");
 
@@ -132,15 +124,13 @@ namespace Hospital_Management_System.Models
                     .IsUnicode(false)
                     .HasColumnName("Room_Nr");
 
-                entity.Property(e => e.NrPacientave)
-                    .HasColumnName("Nr_Pacientave")
-                    .HasDefaultValueSql("((1))");
+                entity.Property(e => e.NrPacientave).HasColumnName("Nr_Pacientave");
             });
 
             modelBuilder.Entity<Fatura>(entity =>
             {
                 entity.HasKey(e => e.IdFatura)
-                    .HasName("PK__Fatura__9F2CBCBD494B861C");
+                    .HasName("PK__Fatura__9F2CBCBD9D699575");
 
                 entity.ToTable("Fatura");
 
@@ -154,33 +144,34 @@ namespace Hospital_Management_System.Models
 
                 entity.Property(e => e.PagesaTotale).HasColumnType("decimal(9, 2)");
 
-                entity.Property(e => e.Paguar).HasDefaultValueSql("((1))");
-
                 entity.Property(e => e.Pershkrimi)
                     .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Statusi)
+                    .HasMaxLength(10)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.IdPacientiNavigation)
                     .WithMany(p => p.Faturas)
                     .HasForeignKey(d => d.IdPacienti)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Fatura__ID_Pacie__02FC7413");
+                    .HasConstraintName("FK__Fatura__ID_Pacie__4D5F7D71");
 
                 entity.HasOne(d => d.IdUserRecepsionistiNavigation)
                     .WithMany(p => p.Faturas)
                     .HasForeignKey(d => d.IdUserRecepsionisti)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Fatura__ID_UserR__02084FDA");
+                    .HasConstraintName("FK__Fatura__ID_UserR__4C6B5938");
             });
-
 
             modelBuilder.Entity<Infuzionet>(entity =>
             {
                 entity.ToTable("Infuzionet");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Data).HasColumnType("date");
 
                 entity.Property(e => e.IdInfermieri).HasColumnName("Id_Infermieri");
 
@@ -190,25 +181,27 @@ namespace Hospital_Management_System.Models
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Ora).HasColumnType("smalldatetime");
+                entity.Property(e => e.Ora)
+                    .HasMaxLength(5)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.IdInfermieriNavigation)
                     .WithMany(p => p.Infuzionets)
                     .HasForeignKey(d => d.IdInfermieri)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Infuzione__Id_In__22751F6C");
+                    .HasConstraintName("FK__Infuzione__Id_In__690797E6");
 
                 entity.HasOne(d => d.IdPacientiNavigation)
                     .WithMany(p => p.Infuzionets)
                     .HasForeignKey(d => d.IdPacienti)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Infuzione__Id_Pa__236943A5");
+                    .HasConstraintName("FK__Infuzione__Id_Pa__69FBBC1F");
             });
 
             modelBuilder.Entity<Kontrolla>(entity =>
             {
                 entity.HasKey(e => e.IdKontrolla)
-                    .HasName("PK__Kontroll__0E7582983119F0B7");
+                    .HasName("PK__Kontroll__0E75829855652BCD");
 
                 entity.ToTable("Kontrolla");
 
@@ -237,19 +230,19 @@ namespace Hospital_Management_System.Models
                     .WithMany(p => p.Kontrollas)
                     .HasForeignKey(d => d.IdPacienti)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Kontrolla__ID_Pa__17F790F9");
+                    .HasConstraintName("FK__Kontrolla__ID_Pa__5E8A0973");
 
                 entity.HasOne(d => d.IdUserMjekuNavigation)
                     .WithMany(p => p.Kontrollas)
                     .HasForeignKey(d => d.IdUserMjeku)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Kontrolla__ID_Us__17036CC0");
+                    .HasConstraintName("FK__Kontrolla__ID_Us__5D95E53A");
             });
 
             modelBuilder.Entity<Laboratori>(entity =>
             {
                 entity.HasKey(e => e.NrAnalizes)
-                    .HasName("PK__Laborato__4EC6A610E7ACD69E");
+                    .HasName("PK__Laborato__4EC6A610047D3AA7");
 
                 entity.ToTable("Laboratori");
 
@@ -269,19 +262,19 @@ namespace Hospital_Management_System.Models
                     .WithMany(p => p.Laboratoris)
                     .HasForeignKey(d => d.IdPacienti)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Laborator__ID_Pa__7F2BE32F");
+                    .HasConstraintName("FK__Laborator__ID_Pa__498EEC8D");
 
                 entity.HasOne(d => d.IdUserLaborantiNavigation)
                     .WithMany(p => p.Laboratoris)
                     .HasForeignKey(d => d.IdUserLaboranti)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Laborator__ID_Us__7E37BEF6");
+                    .HasConstraintName("FK__Laborator__ID_Us__489AC854");
             });
 
             modelBuilder.Entity<Operacioni>(entity =>
             {
                 entity.HasKey(e => e.IdOperacioni)
-                    .HasName("PK__Operacio__34E81AD3CA2D939F");
+                    .HasName("PK__Operacio__34E81AD39890DFAE");
 
                 entity.ToTable("Operacioni");
 
@@ -296,45 +289,52 @@ namespace Hospital_Management_System.Models
 
                 entity.Property(e => e.IdUserMjekuKryesor).HasColumnName("ID_UserMjekuKryesor");
 
+                entity.Property(e => e.Ora)
+                    .HasMaxLength(5)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.SallaNr)
                     .HasMaxLength(6)
                     .IsUnicode(false)
                     .HasColumnName("Salla_Nr");
 
-                entity.Property(e => e.Statusi).HasDefaultValueSql("((1))");
-
                 entity.HasOne(d => d.IdPacientiNavigation)
                     .WithMany(p => p.Operacionis)
                     .HasForeignKey(d => d.IdPacienti)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Operacion__ID_Pa__08B54D69");
+                    .HasConstraintName("FK__Operacion__ID_Pa__531856C7");
 
                 entity.HasOne(d => d.IdUserMjekuKryesorNavigation)
                     .WithMany(p => p.Operacionis)
                     .HasForeignKey(d => d.IdUserMjekuKryesor)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Operacion__ID_Us__07C12930");
+                    .HasConstraintName("FK__Operacion__ID_Us__5224328E");
 
                 entity.HasOne(d => d.SallaNrNavigation)
                     .WithMany(p => p.Operacionis)
                     .HasForeignKey(d => d.SallaNr)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Operacion__Salla__09A971A2");
+                    .HasConstraintName("FK__Operacion__Salla__540C7B00");
             });
 
             modelBuilder.Entity<Pacienti>(entity =>
             {
                 entity.HasKey(e => e.IdPacienti)
-                    .HasName("PK__Pacienti__5F365065C3438894");
+                    .HasName("PK__Pacienti__5F3650658E42EE9E");
 
                 entity.ToTable("Pacienti");
 
-                entity.HasIndex(e => e.Nrtelefonit, "UQ__Pacienti__1E44B1BF50E06411")
+                entity.HasIndex(e => e.Nrtelefonit, "UQ__Pacienti__1E44B1BFE8D935B5")
                     .IsUnique();
 
                 entity.Property(e => e.IdPacienti)
                     .ValueGeneratedNever()
                     .HasColumnName("ID_Pacienti");
+
+                entity.Property(e => e.Alergji)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("('Ska')");
 
                 entity.Property(e => e.Ditelindja).HasColumnType("date");
 
@@ -376,7 +376,7 @@ namespace Hospital_Management_System.Models
             modelBuilder.Entity<Praktikanti>(entity =>
             {
                 entity.HasKey(e => e.IdPraktikanti)
-                    .HasName("PK__Praktika__36B5F1F937E5AAC5");
+                    .HasName("PK__Praktika__36B5F1F926543CE0");
 
                 entity.ToTable("Praktikanti");
 
@@ -384,7 +384,9 @@ namespace Hospital_Management_System.Models
                     .ValueGeneratedNever()
                     .HasColumnName("ID_Praktikanti");
 
-                entity.Property(e => e.Aprovimi).HasDefaultValueSql("((1))");
+                entity.Property(e => e.Aprovimi)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.DataFillimit).HasColumnType("date");
 
@@ -406,13 +408,13 @@ namespace Hospital_Management_System.Models
                     .WithMany(p => p.Praktikantis)
                     .HasForeignKey(d => d.MjekuMbikqyres)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Praktikan__Mjeku__1EA48E88");
+                    .HasConstraintName("FK__Praktikan__Mjeku__65370702");
             });
 
             modelBuilder.Entity<Terminet>(entity =>
             {
                 entity.HasKey(e => e.IdTermini)
-                    .HasName("PK__Terminet__E6AD236167A70DE3");
+                    .HasName("PK__Terminet__E6AD23612ACDD937");
 
                 entity.ToTable("Terminet");
 
@@ -421,7 +423,7 @@ namespace Hospital_Management_System.Models
                     .IsUnicode(false)
                     .HasColumnName("ID_Termini");
 
-                entity.Property(e => e.Data).HasColumnType("smalldatetime");
+                entity.Property(e => e.Data).HasColumnType("date");
 
                 entity.Property(e => e.IdMjeku).HasColumnName("ID_Mjeku");
 
@@ -431,22 +433,26 @@ namespace Hospital_Management_System.Models
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Ora)
+                    .HasMaxLength(5)
+                    .IsUnicode(false);
+
                 entity.HasOne(d => d.IdMjekuNavigation)
                     .WithMany(p => p.Terminets)
                     .HasForeignKey(d => d.IdMjeku)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Terminet__ID_Mje__1332DBDC");
+                    .HasConstraintName("FK__Terminet__ID_Mje__59C55456");
 
                 entity.HasOne(d => d.IdPacientiNavigation)
                     .WithMany(p => p.Terminets)
                     .HasForeignKey(d => d.IdPacienti)
-                    .HasConstraintName("FK__Terminet__ID_Pac__14270015");
+                    .HasConstraintName("FK__Terminet__ID_Pac__5AB9788F");
             });
 
             modelBuilder.Entity<TrajtimetMujore>(entity =>
             {
                 entity.HasKey(e => new { e.NrT, e.IdPacienti })
-                    .HasName("PK__Trajtime__3E133E5CDFAA51CC");
+                    .HasName("PK__Trajtime__3E133E5CEAD9A78D");
 
                 entity.ToTable("Trajtimet_Mujore");
 
@@ -472,20 +478,20 @@ namespace Hospital_Management_System.Models
                     .WithMany(p => p.TrajtimetMujores)
                     .HasForeignKey(d => d.IdPacienti)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Trajtimet__ID_Pa__0D7A0286");
+                    .HasConstraintName("FK__Trajtimet__ID_Pa__56E8E7AB");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.IdUser)
-                    .HasName("PK__User__ED4DE442655A82B7");
+                    .HasName("PK__User__ED4DE442CF57B672");
 
                 entity.ToTable("User");
 
-                entity.HasIndex(e => e.Nrtelefonit, "UQ__User__1E44B1BF9F206E58")
+                entity.HasIndex(e => e.Nrtelefonit, "UQ__User__1E44B1BF102F6856")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Email, "UQ__User__A9D10534C832299B")
+                entity.HasIndex(e => e.Email, "UQ__User__A9D10534F0E6A616")
                     .IsUnique();
 
                 entity.Property(e => e.IdUser).HasColumnName("ID_User");

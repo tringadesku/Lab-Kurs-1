@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 export const Userat = () => {
 
   const [dbUsers, setdbUsers] = useState([]);
-  const [userEdited, setUserEdited] = useState(null);
 
   function getUsers(){
     const url = 'https://localhost:7013/api/User';
@@ -76,29 +75,6 @@ export const Userat = () => {
     
   </div>
   )
-
-  function onUserEdited(userEdited){
-    setUserEdited(null);
-    if(userEdited === null){
-      return;
-    }
-
-    let usersCopy = [...dbUsers];
-
-    const index = usersCopy.findIndex((usersCopyUser, currentIndex) => {
-      if(usersCopyUser.idUser === userEdited.idUser){
-        return true;
-      }
-    });
-
-    if(index !== -1){
-      usersCopy[index] = userEdited;
-    }
-
-    setdbUsers(usersCopy);
-
-    alert("Useri u editua me sukses!");
-  }
 
   function onDeleteUser(deletedIdUser){
     let usersCopy = [...dbUsers];

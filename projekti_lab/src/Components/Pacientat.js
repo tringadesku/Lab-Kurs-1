@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 export const Pacientat = () => {
 
   const [dbPacientat, setdbPacientat] = useState([]);
-  const [pacientiEdited, setPacientiEdited] = useState(null);
 
   function getPacientat(){
     const url = 'https://localhost:7013/api/Pacienti';
@@ -54,6 +53,7 @@ export const Pacientat = () => {
           <th scope='col'>Qyteti</th>
           <th scope='col'>Emri i Rruges</th>
           <th scope='col'>Tipi i Gjakut</th>
+          <th scope='col'>Alergji</th>
           <th scope='col'>Nr Tel</th>
           <th> </th>
           <th><Link to="/addPacienti" onClick={() => {window.location.href="/addPacienti"}} className="btn btn-primary">Regjistro New</Link> </th>
@@ -71,6 +71,7 @@ export const Pacientat = () => {
             <td>{dbPacientat.qyteti}</td>
             <td>{dbPacientat.emriRruges}</td>
             <td>{dbPacientat.tipiGjakut}</td>
+            <td>{dbPacientat.alergji}</td>
             <td>{dbPacientat.nrtelefonit}</td>
           <td><Link to={`/editPacienti/${dbPacientat.idPacienti}`} className="btn btn-outline-success" onClick={() => {window.location.href=`/editPacienti/${dbPacientat.idPacienti}`}}>Edit</Link></td>
           <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Pacientin "${dbPacientat.idPacienti}"? `)) deletePacienti(dbPacientat.idPacienti)}} className="btn btn-danger">Delete</button></td>
@@ -83,28 +84,6 @@ export const Pacientat = () => {
   </div>
   )
 
-  function onPacientiEdited(pacientiEdited){
-    setPacientiEdited(null);
-    if(pacientiEdited === null){
-      return;
-    }
-
-    let pacientatCopy = [...dbPacientat];
-
-    const index = pacientatCopy.findIndex((pacientatCopyPacienti, currentIndex) => {
-      if(pacientatCopyPacienti.idPacienti === pacientiEdited.idPacienti){
-        return true;
-      }
-    });
-
-    if(index !== -1){
-      pacientatCopy[index] = pacientiEdited;
-    }
-
-    setdbPacientat(pacientatCopy);
-
-    alert("Pacienti u editua me sukses!");
-  }
 
   function onDeletePacienti(deletedIdPacienti){
     let pacientatCopy = [...dbPacientat];

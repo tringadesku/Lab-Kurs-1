@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 export const EditDhoma = (props) => {
 
-  const [dhomaById, setDhomaById] = useState([]);
+  const [formData, setFormData] = useState([]);
   const roomNr = (props.match.params.id);
 
   console.log(props);
@@ -17,7 +17,7 @@ export const EditDhoma = (props) => {
     .then(response => response.json())
     .then(dhomatFromServer => {
       console.log(dhomatFromServer);
-      setDhomaById(dhomatFromServer);
+      setFormData(dhomatFromServer);
     })
     .catch(error => {
       console.log(error);
@@ -25,13 +25,6 @@ export const EditDhoma = (props) => {
   }
 
   useEffect(getDhomaById,[]);
-
-  const initialFormData = {
-    roomNr: roomNr,
-    nrPacientave: dhomaById.nrPacientave
-  };
-  
-  const [formData, setFormData] = useState(initialFormData);
 
   const handleChange = (e => {
     setFormData({
@@ -78,12 +71,12 @@ export const EditDhoma = (props) => {
 
         <div className="mt-5">
           <label className="h3 form-label">Room Number</label>
-          <input value={formData.roomNr} name="roomNr" type="text" className="form-control" onChange={handleChange} />
+          <input value={roomNr} name="roomNr" type="text" className="form-control" onChange={handleChange} />
         </div>
 
         <div className="mt-4">
           <label className="h3 form-label">Numri i Pacientave</label>
-          <input value={formData.nrPacientave} placeholder={dhomaById.nrPacientave} name="nrPacientave" type="number" className="form-control" onChange={handleChange}/>
+          <input value={formData.nrPacientave} name="nrPacientave" type="number" className="form-control" onChange={handleChange}/>
         </div>
 
         <button onClick={handleSubmit} className="btn btn-dark btn-lg w-100 mt-5">Edito</button>

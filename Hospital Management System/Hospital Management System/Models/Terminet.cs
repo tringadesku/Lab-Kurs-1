@@ -9,6 +9,7 @@ namespace Hospital_Management_System.Models
         public string IdTermini { get; set; } = null!;
         public int? IdPacienti { get; set; }
         public DateTime Data { get; set; }
+        public string Ora { get; set; } = null!;
         public string Lloji { get; set; } = null!;
 
         public virtual User IdMjekuNavigation { get; set; } = null!;

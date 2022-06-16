@@ -41,8 +41,8 @@ export const AddInfuzioni = () => {
       });
 
 
-      console.log(infuzioniToAdd);
-      
+      alert('Infuzioni u shtua me sukses!');
+      {window.location.href="/infuzionet"}
 
     }
 
@@ -51,11 +51,6 @@ export const AddInfuzioni = () => {
       <div style={{marginRight: "33%"}}>
         <form className="w-100 px-5" action="">
           <h1 className="mt-5">Shto Infuzion te ri:</h1>
-
-          <div className="mt-5">
-            <label className="h3 form-label">Infuzioni ID</label>
-            <input name="id" type="number" className="form-control" onChange={handleChange}/>
-          </div>
 
           <div className="mt-4">
             <label className="h3 form-label">ID Infermierit</label>
@@ -71,10 +66,15 @@ export const AddInfuzioni = () => {
             <label className="h3 form-label">Lloji</label>
             <input  name="lloji" type="text" className="form-control" onChange={handleChange}/>
           </div>
+          
+          <div className="mt-4">
+            <label className="h3 form-label">Data</label>
+            <input  name="data" type="text" className="form-control" placeholder="Viti-Muaji-Dita" onChange={handleChange}/>
+          </div>
 
           <div className="mt-4">
             <label className="h3 form-label">Ora</label>
-            <input  name="ora" type="text" className="form-control" onChange={handleChange}/>
+            <input  name="ora" type="text" className="form-control" placeholder="HH:MM" onChange={handleChange}/>
           </div>
 
           <button onClick={handleSubmit} className="btn btn-dark btn-lg w-100 mt-5">Regjistro</button>

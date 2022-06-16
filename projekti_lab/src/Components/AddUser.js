@@ -42,7 +42,8 @@ export const AddUser = () => {
       });
 
 
-      console.log(userToAdd);
+      alert('Useri u shtua me sukses!');
+      {window.location.href="/users"}
       
 
     }
@@ -52,11 +53,6 @@ export const AddUser = () => {
       <div style={{marginRight: "33%"}}>
         <form className="w-100 px-5" action="">
           <h1 className="mt-5">Shto User te ri:</h1>
-
-          <div className="mt-5">
-            <label className="h3 form-label">ID e Userit</label>
-            <input name="idUser" type="number" className="form-control" onChange={handleChange}/>
-          </div>
 
           <div className="mt-4">
             <label className="h3 form-label">Emri</label>

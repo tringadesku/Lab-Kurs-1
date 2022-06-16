@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 export const EditInfuzioni = (props) => {
 
-  const [infuzioniById, setInfuzioniById] = useState([]);
+  const [formData, setFormData] = useState([]);
   const id = (props.match.params.id);
 
   console.log(props);
@@ -17,24 +17,14 @@ export const EditInfuzioni = (props) => {
     .then(response => response.json())
     .then(infuzioniFromServer => {
       console.log(infuzioniFromServer);
-      setInfuzioniById(infuzioniFromServer);
+      setFormData(infuzioniFromServer);
     })
     .catch(error => {
       console.log(error);
     });
   }
 
-  useEffect(getInfuzioniById,[]);
-
-  const initialFormData = {
-    id: id,
-    idInfermieri: infuzioniById.idInfermieri,
-    idPacienti: infuzioniById.idPacienti,
-    lloji: infuzioniById.lloji,
-    ora: infuzioniById.ora
-  };
-  
-  const [formData, setFormData] = useState(initialFormData);
+  useEffect(getInfuzioniById,[]);  
 
   const handleChange = (e => {
     setFormData({
@@ -51,6 +41,7 @@ export const EditInfuzioni = (props) => {
       idInfermieri: formData.idInfermieri,
       idPacienti: formData.idPacienti,
       lloji: formData.lloji,
+      data: formData.data,
       ora: formData.ora
     };
 
@@ -89,22 +80,27 @@ export const EditInfuzioni = (props) => {
 
         <div className="mt-4">
           <label className="h3 form-label">ID Infermieri</label>
-          <input value={formData.idInfermieri} placeholder={infuzioniById.idInfermieri} name="idInfermieri" type="number" className="form-control" onChange={handleChange}/>
+          <input value={formData.idInfermieri} name="idInfermieri" type="number" className="form-control" onChange={handleChange}/>
         </div>
 
         <div className="mt-4">
           <label className="h3 form-label">ID Pacientit</label>
-          <input value={formData.idPacienti} placeholder={infuzioniById.idPacienti} name="idPacienti" type="number" className="form-control" onChange={handleChange}/>
+          <input value={formData.idPacienti}  name="idPacienti" type="number" className="form-control" onChange={handleChange}/>
         </div>
 
         <div className="mt-4">
           <label className="h3 form-label">Lloji</label>
-          <input value={formData.lloji} placeholder={infuzioniById.lloji} name="lloji" type="text" className="form-control" onChange={handleChange}/>
+          <input value={formData.lloji} name="lloji" type="text" className="form-control" onChange={handleChange}/>
+        </div>
+
+        <div className="mt-4">
+          <label className="h3 form-label">Data</label>
+          <input value={formData.data} name="data" type="text" className="form-control" onChange={handleChange}/>
         </div>
 
         <div className="mt-4">
           <label className="h3 form-label">Ora</label>
-          <input value={formData.ora} placeholder={infuzioniById.ora} name="ora" type="text" className="form-control" onChange={handleChange}/>
+          <input value={formData.ora} name="ora" type="text" className="form-control" onChange={handleChange}/>
         </div>
 
         <button onClick={handleSubmit} className="btn btn-dark btn-lg w-100 mt-5">Edito</button>

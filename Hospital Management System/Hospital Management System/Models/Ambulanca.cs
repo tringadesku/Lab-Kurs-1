@@ -8,7 +8,7 @@ namespace Hospital_Management_System.Models
         public int IdUserMjekuLider { get; set; }
         public int NrAuto { get; set; }
         public string Lokacioni { get; set; } = null!;
-        public bool? Statusi { get; set; }
+        public string Statusi { get; set; } = null!;
 
         public virtual User IdUserMjekuLiderNavigation { get; set; } = null!;
     }

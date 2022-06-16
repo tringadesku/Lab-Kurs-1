@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 export const Dhomat = () => {
 
   const [dbDhomat, setdbDhomat] = useState([]);
-  const [dhomaEdited, setDhomaEdited] = useState(null);
 
   function getDhomat(){
     const url = 'https://localhost:7013/api/Dhoma';
@@ -66,29 +65,6 @@ export const Dhomat = () => {
     
   </div>
   )
-
-  function onDhomaEdited(dhomaEdited){
-    setDhomaEdited(null);
-    if(dhomaEdited === null){
-      return;
-    }
-
-    let dhomatCopy = [...dbDhomat];
-
-    const index = dhomatCopy.findIndex((dhomatCopyDhoma, currentIndex) => {
-      if(dhomatCopyDhoma.roomNr === dhomaEdited.roomNr){
-        return true;
-      }
-    });
-
-    if(index !== -1){
-      dhomatCopy[index] = dhomaEdited;
-    }
-
-    setdbDhomat(dhomatCopy);
-
-    alert("Dhoma u editua me sukses!");
-  }
 
   function onDeleteDhoma(deletedRoomNr){
     let dhomatCopy = [...dbDhomat];

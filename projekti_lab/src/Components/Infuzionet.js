@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 export const Infuzionet = () => {
 
   const [dbInfuzionet, setdbInfuzionet] = useState([]);
-  const [infuzioniEdited, setInfuzioniEdited] = useState(null);
 
   function getInfuzionet(){
     const url = 'https://localhost:7013/api/Infuzionet';
@@ -48,8 +47,9 @@ export const Infuzionet = () => {
           <th scope='col'>ID</th>
           <th scope='col'>ID Infermierit</th>
           <th scope='col'>ID Pacientit</th>
-          <th scope='col'>ID Lloji</th>
-          <th scope='col'>ID Ora</th>
+          <th scope='col'>Lloji</th>
+          <th scope='col'>Data</th>
+          <th scope='col'>Ora</th>
           <th> </th>
           <th><Link to="/addInfuzioni" onClick={() => {window.location.href="/addInfuzioni"}} className="btn btn-primary">Ruaj Infuzion</Link> </th>
         </tr>
@@ -61,6 +61,7 @@ export const Infuzionet = () => {
             <td>{dbInfuzionet.idInfermieri}</td>
             <td>{dbInfuzionet.idPacienti}</td>
             <td>{dbInfuzionet.lloji}</td>
+            <td>{dbInfuzionet.data}</td>
             <td>{dbInfuzionet.ora}</td>
           <td><Link to={`/editInfuzioni/${dbInfuzionet.id}`} className="btn btn-outline-success" onClick={() => {window.location.href=`/editInfuzioni/${dbInfuzionet.id}`}}>Edit</Link></td>
           <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Infuzionin "${dbInfuzionet.id}"? `)) deleteInfuzioni(dbInfuzionet.id)}} className="btn btn-danger">Delete</button></td>
@@ -72,29 +73,6 @@ export const Infuzionet = () => {
     
   </div>
   )
-
-  function onInfuzioniEdited(infuzioniEdited){
-    setInfuzioniEdited(null);
-    if(infuzioniEdited === null){
-      return;
-    }
-
-    let infuzionetCopy = [...dbInfuzionet];
-
-    const index = infuzionetCopy.findIndex((infuzionetCopyInfuzioni, currentIndex) => {
-      if(infuzionetCopyInfuzioni.id === infuzioniEdited.id){
-        return true;
-      }
-    });
-
-    if(index !== -1){
-      infuzionetCopy[index] = infuzioniEdited;
-    }
-
-    setdbInfuzionet(infuzionetCopy);
-
-    alert("Infuzioni u editua me sukses!");
-  }
 
   function onDeleteInfuzioni(deletedId){
     let infuzionetCopy = [...dbInfuzionet];

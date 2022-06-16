@@ -31,10 +31,8 @@ namespace Hospital_Management_System.Models
 
         [JsonIgnore]
         public virtual ICollection<ActivityLogDhomaSalla> ActivityLogDhomaSallas { get; set; }
-
         [JsonIgnore]
         public virtual ICollection<ActivityLogUser> ActivityLogUsers { get; set; }
-
         [JsonIgnore]
         public virtual ICollection<Ambulanca> Ambulancas { get; set; }
         [JsonIgnore]

@@ -12,7 +12,7 @@ namespace Hospital_Management_System.Models
         public DateTime DataFillimit { get; set; }
         public DateTime DataPerfundimit { get; set; }
         public int Oret { get; set; }
-        public bool? Aprovimi { get; set; }
+        public string Aprovimi { get; set; } = null!;
 
         public virtual User MjekuMbikqyresNavigation { get; set; } = null!;
     }
