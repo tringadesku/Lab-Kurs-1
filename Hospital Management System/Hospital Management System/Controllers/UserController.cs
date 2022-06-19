@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using System.Security.Cryptography;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -11,9 +14,11 @@ namespace Hospital_Management_System.Controllers
     public class UserController : ControllerBase
     {
         private readonly draft1Context _dataContext;
-        public UserController(draft1Context dataContext)
+        private readonly IConfiguration _configuration;
+        public UserController(draft1Context dataContext, IConfiguration configuration)
         {
             _dataContext = dataContext;
+            _configuration = configuration;
         }
 
         [HttpPost]
@@ -29,9 +34,36 @@ namespace Hospital_Management_System.Controllers
 
             if (dbUser == null)
             {
-                return BadRequest("Invaliiid");
+                return BadRequest("Invalid");
             }
-            return Ok(dbUser);
+
+            string token = CreateToken(dbUser);
+            return Ok(token);
+        }
+
+        private string CreateToken(User user)
+        {
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim("email", user.Email),
+                new Claim("emri", user.Emri),
+                new Claim("mbiemri", user.Mbiemri),
+                new Claim("role", user.Pozita)
+            };
+
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+                _configuration.GetSection("AppSettings:Token").Value));
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: creds);
+
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return jwt;
         }
 
 
@@ -105,5 +137,3 @@ namespace Hospital_Management_System.Controllers
 
             return Ok(await _dataContext.Users.ToListAsync());
         }
-    }
-}
