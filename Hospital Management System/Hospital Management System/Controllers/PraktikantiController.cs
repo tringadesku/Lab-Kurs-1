@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -20,7 +19,6 @@ namespace Hospital_Management_System.Controllers
             return Ok(await _dataContext.Praktikantis.ToListAsync());
         }
 
-
         [HttpGet("{id}")]
         public async Task<ActionResult<Praktikanti>> Get(int id)
         {
@@ -29,7 +27,6 @@ namespace Hospital_Management_System.Controllers
                 return BadRequest("Praktikanti not found!");
             return Ok(i);
         }
-
 
         [HttpPost]
         public async Task<ActionResult<List<Praktikanti>>> AddPraktikanti(Praktikanti i)
@@ -42,25 +39,23 @@ namespace Hospital_Management_System.Controllers
         [HttpPut]
         public async Task<ActionResult<List<Praktikanti>>> UpdatePraktikanti(Praktikanti request)
         {
-            var dbPraktikanti = await _dataContext.Praktikantis.FindAsync(request.IdPraktikanti);
-            if (dbPraktikanti == null)
+            var dbAmbulanca = await _dataContext.Praktikantis.FindAsync(request.IdPraktikanti);
+            if (dbAmbulanca == null)
                 return BadRequest("Praktikanti not found!");
 
-            dbPraktikanti.IdPraktikanti = request.IdPraktikanti;
-            dbPraktikanti.EmriPr = request.EmriPr;
-            dbPraktikanti.MbiemriPr = request.MbiemriPr;
-            dbPraktikanti.MjekuMbikqyres = request.MjekuMbikqyres;
-            dbPraktikanti.DataFillimit = request.DataFillimit;
-            dbPraktikanti.DataPerfundimit = request.DataPerfundimit;
-            dbPraktikanti.Oret = request.Oret;
-            dbPraktikanti.Aprovimi = request.Aprovimi;
-
+            dbAmbulanca.IdPraktikanti = request.IdPraktikanti;
+            dbAmbulanca.EmriPr = request.EmriPr;
+            dbAmbulanca.MbiemriPr = request.MbiemriPr;
+            dbAmbulanca.MjekuMbikqyres = request.MjekuMbikqyres;
+            dbAmbulanca.DataFillimit = request.DataFillimit;
+            dbAmbulanca.DataPerfundimit = request.DataPerfundimit;
+            dbAmbulanca.Oret = request.Oret;
+            dbAmbulanca.Aprovimi = request.Aprovimi;
 
             await _dataContext.SaveChangesAsync();
 
             return Ok(await _dataContext.Praktikantis.ToListAsync());
         }
-
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<Praktikanti>>> Delete(int id)
         {
@@ -73,5 +68,10 @@ namespace Hospital_Management_System.Controllers
 
             return Ok(await _dataContext.Praktikantis.ToListAsync());
         }
+
+
     }
+
+
+
 }

@@ -20,7 +20,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Kontrolla>> Get(int id)
+        public async Task<ActionResult<Kontrolla>> Get(string id)
         {
             var i = await _dataContext.Kontrollas.FindAsync(id);
             if (i == null)
@@ -42,10 +42,10 @@ namespace Hospital_Management_System.Controllers
             var dbKontrolla = await _dataContext.Kontrollas.FindAsync(request.IdKontrolla);
             if (dbKontrolla == null)
                 return BadRequest("Kontrolla not found!");
-
+           
+            dbKontrolla.IdKontrolla = request.IdKontrolla;
             dbKontrolla.IdUserMjeku = request.IdUserMjeku;
             dbKontrolla.IdPacienti = request.IdPacienti;
-            dbKontrolla.IdKontrolla = request.IdKontrolla;
             dbKontrolla.Diagnoza = request.Diagnoza;
             dbKontrolla.Pershkrimi = request.Pershkrimi;
             dbKontrolla.Receta = request.Receta;
@@ -56,7 +56,7 @@ namespace Hospital_Management_System.Controllers
             return Ok(await _dataContext.Kontrollas.ToListAsync());
         }
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<Kontrolla>>> Delete(int id)
+        public async Task<ActionResult<List<Kontrolla>>> Delete(string id)
         {
             var dbKontrolla = await _dataContext.Kontrollas.FindAsync(id);
             if (dbKontrolla == null)

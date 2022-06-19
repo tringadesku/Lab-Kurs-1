@@ -43,8 +43,8 @@ namespace Hospital_Management_System.Controllers
             if (dbAmbulanca == null)
                 return BadRequest("Ambulanca not found!");
 
-            dbAmbulanca.IdUserMjekuLider = request.IdUserMjekuLider;
             dbAmbulanca.NrAuto = request.NrAuto;
+            dbAmbulanca.IdUserMjekuLider = request.IdUserMjekuLider;
             dbAmbulanca.Lokacioni = request.Lokacioni;
             dbAmbulanca.Statusi = request.Statusi;
 

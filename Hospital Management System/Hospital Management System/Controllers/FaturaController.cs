@@ -43,9 +43,9 @@ namespace Hospital_Management_System.Controllers
             if (dbFatura == null)
                 return BadRequest("Fatura not found!");
 
+            dbFatura.IdFatura = request.IdFatura;
             dbFatura.IdUserRecepsionisti = request.IdUserRecepsionisti;
             dbFatura.IdPacienti = request.IdPacienti;
-            dbFatura.IdFatura = request.IdFatura;
             dbFatura.Pershkrimi = request.Pershkrimi;
             dbFatura.Data = request.Data;
             dbFatura.PagesaTotale = request.PagesaTotale;

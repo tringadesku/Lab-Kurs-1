@@ -16,6 +16,6 @@ namespace Hospital_Management_System.Models
         public string Aprovimi { get; set; } = null!;
 
         [JsonIgnore]
-        public virtual User? MjekuMbikqyresNavigation { get; set; } = null!;
+        public virtual User? MjekuMbikqyresNavigation { get; set; }
     }
 }
