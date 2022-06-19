@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import authHeader from "../Services/auth-header";
 
 export const Infuzionet = () => {
 
@@ -8,7 +9,8 @@ export const Infuzionet = () => {
   function getInfuzionet(){
     const url = 'https://localhost:7013/api/Infuzionet';
     fetch(url, {
-      method: 'GET'
+      method: 'GET',
+      headers: authHeader()
     })
     .then(response => response.json())
     .then(infuzionetFromServer => {
@@ -23,7 +25,8 @@ export const Infuzionet = () => {
   function deleteInfuzioni(id){
     const url = `https://localhost:7013/api/Infuzionet/${id}`;
     fetch(url, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: authHeader()
     })
     .then(response => response.json())
     .then(responseFromServer => {
@@ -41,37 +44,40 @@ export const Infuzionet = () => {
   return (
     <div className='table-responsive mt-1 mx-5'>
       <h3>Infuzionet</h3>
-    <table className='table table-striped'>
-      <thead>
-        <tr className="table-success">
-          <th scope='col'>ID</th>
-          <th scope='col'>ID Infermierit</th>
-          <th scope='col'>ID Pacientit</th>
-          <th scope='col'>Lloji</th>
-          <th scope='col'>Data</th>
-          <th scope='col'>Ora</th>
-          <th> </th>
-          <th><Link to="/addInfuzioni" onClick={() => {window.location.href="/addInfuzioni"}} className="btn btn-primary">Ruaj Infuzion</Link> </th>
-        </tr>
-      </thead>
-      <tbody>
+      <table className='table table-striped'>
+        <thead>
+          <tr className="table-success">
+            <th scope='col'>ID</th>
+            <th scope='col'>ID Infermierit</th>
+            <th scope='col'>ID Pacientit</th>
+            <th scope='col'>Lloji</th>
+            <th scope='col'>Data</th>
+            <th scope='col'>Ora</th>
+            <th> </th>
+            <th><Link to="/addInfuzioni" onClick={() => { window.location.href = "/addInfuzioni"; } } className="btn btn-primary">Ruaj Infuzion</Link> </th>
+          </tr>
+        </thead>
+        <tbody>
           {dbInfuzionet.map(dbInfuzionet => (
-          <tr key={dbInfuzionet.id}>
-            <td>{dbInfuzionet.id}</td>
-            <td>{dbInfuzionet.idInfermieri}</td>
-            <td>{dbInfuzionet.idPacienti}</td>
-            <td>{dbInfuzionet.lloji}</td>
-            <td>{dbInfuzionet.data}</td>
-            <td>{dbInfuzionet.ora}</td>
-          <td><Link to={`/editInfuzioni/${dbInfuzionet.id}`} className="btn btn-outline-success" onClick={() => {window.location.href=`/editInfuzioni/${dbInfuzionet.id}`}}>Edit</Link></td>
-          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Infuzionin "${dbInfuzionet.id}"? `)) deleteInfuzioni(dbInfuzionet.id)}} className="btn btn-danger">Delete</button></td>
-        </tr>   
+            <tr key={dbInfuzionet.id}>
+              <td>{dbInfuzionet.id}</td>
+              <td>{dbInfuzionet.idInfermieri}</td>
+              <td>{dbInfuzionet.idPacienti}</td>
+              <td>{dbInfuzionet.lloji}</td>
+              <td>{dbInfuzionet.data}</td>
+              <td>{dbInfuzionet.ora}</td>
+              <td><Link to={`/editInfuzioni/${dbInfuzionet.id}`} className="btn btn-outline-success" onClick={() => { window.location.href = `/editInfuzioni/${dbInfuzionet.id}`; } }>Edit</Link></td>
+              <td><button type="button" onClick={() => {
+                if (window.confirm(`A jeni i sigurt qe doni te fshini Infuzionin "${dbInfuzionet.id}"? `))
+                  deleteInfuzioni(dbInfuzionet.id);
+              } } className="btn btn-danger">Delete</button></td>
+            </tr>
           ))}
-      </tbody>
+        </tbody>
 
-    </table>
-    
-  </div>
+      </table>
+
+    </div>
   )
 
   function onDeleteInfuzioni(deletedId){

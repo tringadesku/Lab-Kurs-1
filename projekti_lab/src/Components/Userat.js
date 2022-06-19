@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import authHeader from "../Services/auth-header";
 
 export const Userat = () => {
 
@@ -8,7 +9,8 @@ export const Userat = () => {
   function getUsers(){
     const url = 'https://localhost:7013/api/User';
     fetch(url, {
-      method: 'GET'
+      method: 'GET',
+      headers: authHeader()
     })
     .then(response => response.json())
     .then(usersFromServer => {
@@ -23,7 +25,8 @@ export const Userat = () => {
   function deleteUser(idUser){
     const url = `https://localhost:7013/api/User/${idUser}`;
     fetch(url, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: authHeader()
     })
     .then(response => response.json())
     .then(responseFromServer => {

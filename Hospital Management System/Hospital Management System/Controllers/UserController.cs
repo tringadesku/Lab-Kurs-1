@@ -1,4 +1,4 @@
-﻿Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -68,6 +69,7 @@ namespace Hospital_Management_System.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<User>>> Get()
         {
             return Ok(await _dataContext.Users.ToListAsync());
@@ -75,6 +77,7 @@ namespace Hospital_Management_System.Controllers
 
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<User>> Get(int id)
         {
             var u = await _dataContext.Users.FindAsync(id);
@@ -85,11 +88,12 @@ namespace Hospital_Management_System.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<User>>> AddUser(User u)
         {
             var dbUser = _dataContext.Users.Where(user => user.Email == u.Email).FirstOrDefault();
 
-            if (dbUser != null)
+            if(dbUser != null)
             {
                 return BadRequest("Useri ekziston me qit email!");
             }
@@ -106,6 +110,7 @@ namespace Hospital_Management_System.Controllers
 
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<User>>> UpdateUser(User request)
         {
             var dbUser = await _dataContext.Users.FindAsync(request.IdUser);
@@ -126,6 +131,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<User>>> Delete(int id)
         {
             var dbUser = await _dataContext.Users.FindAsync(id);
@@ -137,3 +143,5 @@ namespace Hospital_Management_System.Controllers
 
             return Ok(await _dataContext.Users.ToListAsync());
         }
+    }
+}

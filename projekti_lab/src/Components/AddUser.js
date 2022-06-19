@@ -29,7 +29,8 @@ export const AddUser = () => {
       fetch(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization' : 'bearer ' + (localStorage.getItem("usertoken"))
         },
         body: JSON.stringify(userToAdd)
       })

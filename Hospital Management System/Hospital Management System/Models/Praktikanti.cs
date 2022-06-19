@@ -14,7 +14,7 @@ namespace Hospital_Management_System.Models
         public DateTime DataPerfundimit { get; set; }
         public int Oret { get; set; }
         public string Aprovimi { get; set; } = null!;
-
+    
         [JsonIgnore]
         public virtual User? MjekuMbikqyresNavigation { get; set; }
     }

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Recepsionist")]
     public class TrajtimetMujoreController : ControllerBase
     {
         private readonly draft1Context _dataContext;

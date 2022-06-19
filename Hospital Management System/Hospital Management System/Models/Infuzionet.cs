@@ -14,8 +14,9 @@ namespace Hospital_Management_System.Models
         public string Ora { get; set; } = null!;
 
         [JsonIgnore]
-        public virtual User? IdInfermieriNavigation { get; set; }
+        public virtual User? IdInfermieriNavigation { get; set; } = null!;
+
         [JsonIgnore]
-        public virtual Pacienti? IdPacientiNavigation { get; set; }
+        public virtual Pacienti? IdPacientiNavigation { get; set; } = null!;
     }
 }

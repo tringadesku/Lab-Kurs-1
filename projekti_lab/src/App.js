@@ -14,6 +14,7 @@ import { EditUser } from "./Components/EditUser";
 import { AddInfuzioni } from "./Components/AddInfuzioni";
 import { EditInfuzioni } from "./Components/EditInfuzioni";
 import { Infuzionet } from "./Components/Infuzionet";
+import { Login } from "./Components/Login";
 import { Kontrollat } from "./Components/Kontrollat";
 import { AddKontrolla } from "./Components/AddKontrolla";
 import { EditKontrolla } from "./Components/EditKontrolla";
@@ -38,12 +39,18 @@ import { EditTermini } from "./Components/EditTermini";
 
 
 function App(){
+  const usertoken = (localStorage.getItem("usertoken"));
+
   return(
     <div className="App">
       <Router>
-        <Nav />
+      
         <Switch>
+         <Route exact path="/login" component={Login}/>
+          <div>
+          <Nav />
           <Route exact path="/" component={Home}/>
+          <Route exact path="/home" component={Home}/>
           <Route exact path="/dhomat" component={Dhomat}/>
           <Route exact path="/addDhoma" component={AddDhoma}/>
           <Route path="/editDhoma/:id" component={EditDhoma}/>
@@ -77,7 +84,7 @@ function App(){
           <Route path="/terminet" component={Terminet}/>
           <Route exact path="/addTermini" component={AddTermini}/>
           <Route path="/editTermini/:id" component={EditTermini}/>
-
+          </div>
         </Switch>
       </Router>
     </div>

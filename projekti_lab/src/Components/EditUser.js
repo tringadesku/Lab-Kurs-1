@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
+import authHeader from "../Services/auth-header"
 
 
 export const EditUser = (props) => {
@@ -10,7 +11,8 @@ export const EditUser = (props) => {
   function getUserById(){
     const url = `https://localhost:7013/api/User/${idUser}`;
     fetch(url, {
-      method: 'GET'
+      method: 'GET',
+      headers: authHeader()
     })
     .then(response => response.json())
     .then(userFromServer => {
@@ -50,7 +52,8 @@ export const EditUser = (props) => {
     fetch(url, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization' : 'bearer ' + (localStorage.getItem("usertoken"))
       },
       body: JSON.stringify(userToEdit)
     })

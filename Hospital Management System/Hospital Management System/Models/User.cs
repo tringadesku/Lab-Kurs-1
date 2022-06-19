@@ -28,7 +28,6 @@ namespace Hospital_Management_System.Models
         public string? Password { get; set; }
         public string Nrtelefonit { get; set; } = null!;
 
-
         [JsonIgnore]
         public virtual ICollection<ActivityLogDhomaSalla> ActivityLogDhomaSallas { get; set; }
         [JsonIgnore]

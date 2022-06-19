@@ -6,15 +6,15 @@ namespace Hospital_Management_System.Models
 {
     public partial class Laboratori
     {
-        public int NrAnalizes { get; set; }
         public int IdUserLaboranti { get; set; }
         public int IdPacienti { get; set; }
+        public int NrAnalizes { get; set; }
         public DateTime Data { get; set; }
         public string Lloji { get; set; } = null!;
 
         [JsonIgnore]
         public virtual Pacienti? IdPacientiNavigation { get; set; }
         [JsonIgnore]
-        public virtual User? IdUserLaborantiNavigation { get; set; } 
+        public virtual User? IdUserLaborantiNavigation { get; set; }
     }
 }

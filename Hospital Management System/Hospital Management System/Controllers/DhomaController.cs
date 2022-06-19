@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +32,7 @@ namespace Hospital_Management_System.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<Dhoma>>> AddDhoma(Dhoma dh)
         {
             _dataContext.Dhomas.Add(dh);
@@ -39,6 +41,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin,Infermier")]
         public async Task<ActionResult<List<Dhoma>>> UpdateDhoma(Dhoma request)
         {
             var dbDhoma = await _dataContext.Dhomas.FindAsync(request.RoomNr);
@@ -54,6 +57,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<List<Dhoma>>> Delete(string id)
         {
             var dbDhoma = await _dataContext.Dhomas.FindAsync(id);

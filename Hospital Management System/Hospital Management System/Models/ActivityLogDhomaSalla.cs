@@ -12,6 +12,6 @@ namespace Hospital_Management_System.Models
         public DateTime Ora { get; set; }
 
         [JsonIgnore]
-        public virtual User? IdUserAdminNavigation { get; set; } 
+        public virtual User? IdUserAdminNavigation { get; set; }
     }
 }

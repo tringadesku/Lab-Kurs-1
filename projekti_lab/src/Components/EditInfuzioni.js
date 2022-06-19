@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
+import authHeader from "../Services/auth-header";
 
 
 export const EditInfuzioni = (props) => {
@@ -12,7 +13,8 @@ export const EditInfuzioni = (props) => {
   function getInfuzioniById(){
     const url = `https://localhost:7013/api/Infuzionet/${id}`;
     fetch(url, {
-      method: 'GET'
+      method: 'GET',
+      headers: authHeader()
     })
     .then(response => response.json())
     .then(infuzioniFromServer => {
@@ -50,7 +52,8 @@ export const EditInfuzioni = (props) => {
     fetch(url, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization' : 'bearer ' + (localStorage.getItem("usertoken"))
       },
       body: JSON.stringify(infuzioniToEdit)
     })

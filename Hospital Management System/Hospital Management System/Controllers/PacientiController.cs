@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +7,7 @@ namespace Hospital_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize (Roles = "Recepsionist")]
     public class PacientiController : ControllerBase
     {
         private readonly draft1Context _dataContext;
@@ -21,7 +23,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Pacienti>> Get(int id)
+        public async Task<ActionResult<Dhoma>> Get(int id)
         {
             var p = await _dataContext.Pacientis.FindAsync(id);
             if (p == null)

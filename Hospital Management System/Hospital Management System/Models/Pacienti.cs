@@ -29,6 +29,7 @@ namespace Hospital_Management_System.Models
         public string? Alergji { get; set; }
         public string Nrtelefonit { get; set; } = null!;
 
+
         [JsonIgnore]
         public virtual ICollection<Fatura> Faturas { get; set; }
         [JsonIgnore]

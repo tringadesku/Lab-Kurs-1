@@ -512,9 +512,7 @@ namespace Hospital_Management_System.Models
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Password)
-                    .HasMaxLength(32)
-                    .IsUnicode(false);
+                entity.Property(e => e.Password).IsUnicode(false);
 
                 entity.Property(e => e.Pozita)
                     .HasMaxLength(30)
