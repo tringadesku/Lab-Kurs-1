@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -13,6 +15,25 @@ namespace Hospital_Management_System.Controllers
         {
             _dataContext = dataContext;
         }
+
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login([FromBody] LoginModel modeli)
+        {
+            var sha = SHA256.Create();
+            var asByteArrray = Encoding.Default.GetBytes(modeli.Password);
+            var hashedInput = sha.ComputeHash(asByteArrray);
+            modeli.Password = Convert.ToBase64String(hashedInput);
+
+            var dbUser = _dataContext.Users.Where(u => u.Email == modeli.Email && u.Password == modeli.Password).FirstOrDefault();
+
+            if (dbUser == null)
+            {
+                return BadRequest("Invaliiid");
+            }
+            return Ok(dbUser);
+        }
+
 
         [HttpGet]
         public async Task<ActionResult<List<User>>> Get()
@@ -34,10 +55,23 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public async Task<ActionResult<List<User>>> AddUser(User u)
         {
+            var dbUser = _dataContext.Users.Where(user => user.Email == u.Email).FirstOrDefault();
+
+            if (dbUser != null)
+            {
+                return BadRequest("Useri ekziston me qit email!");
+            }
+
+            var sha = SHA256.Create();
+            var asByteArrray = Encoding.Default.GetBytes(u.Password);
+            var hashedPassword = sha.ComputeHash(asByteArrray);
+            u.Password = Convert.ToBase64String(hashedPassword);
+
             _dataContext.Users.Add(u);
             await _dataContext.SaveChangesAsync();
             return Ok(await _dataContext.Users.ToListAsync());
         }
+
 
         [HttpPut]
         public async Task<ActionResult<List<User>>> UpdateUser(User request)

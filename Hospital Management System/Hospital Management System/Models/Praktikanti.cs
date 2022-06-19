@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Hospital_Management_System.Models
 {
@@ -14,6 +15,7 @@ namespace Hospital_Management_System.Models
         public int Oret { get; set; }
         public string Aprovimi { get; set; } = null!;
 
-        public virtual User MjekuMbikqyresNavigation { get; set; } = null!;
+        [JsonIgnore]
+        public virtual User? MjekuMbikqyresNavigation { get; set; } = null!;
     }
 }
