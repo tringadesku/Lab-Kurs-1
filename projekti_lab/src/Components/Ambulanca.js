@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import authHeader from "../Services/auth-header";
+
 
 export const Ambulanca = () => {
 
@@ -8,7 +10,8 @@ export const Ambulanca = () => {
   function getAmbulancat(){
     const url = 'https://localhost:7013/api/Ambulanca';
     fetch(url, {
-      method: 'GET'
+      method: 'GET',
+      headers: authHeader()
     })
     .then(response => response.json())
     .then(ambulancatFromServer => {
@@ -23,7 +26,8 @@ export const Ambulanca = () => {
   function deleteAmbulanca(nrAuto){
     const url = `https://localhost:7013/api/Ambulanca/${nrAuto}`;
     fetch(url, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: authHeader()
     })
     .then(response => response.json())
     .then(responseFromServer => {
@@ -39,7 +43,7 @@ export const Ambulanca = () => {
   useEffect(getAmbulancat,[]);
 
   return (
-    <div className='table-responsive mt-1 mx-5'>
+    <div className='table-responsive mt-1 mx-5' style={{paddingLeft: "13%"}}>
       <h3>Ambulancat</h3>
     <table className='table table-striped'>
       <thead>

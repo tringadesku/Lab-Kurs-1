@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {Dhomat} from './Dhomat'
+import { BsPersonLinesFill } from "react-icons/bs";
 
 
 export const Home = () => {
@@ -9,8 +10,9 @@ export const Home = () => {
   const mbiemri = (localStorage.getItem("user_mbiemri"));
   
   return (
-    <div>
-      <h5 className='mx-5'>Welcome, {emri} {mbiemri} !</h5>
+    <div style={{paddingLeft: "18%"}}>
+      <h5 className='mx-5'>Welcome,{emri} {mbiemri} !</h5>
+      
     </div>
 
     

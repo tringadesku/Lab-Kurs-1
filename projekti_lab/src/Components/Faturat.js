@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import authHeader from "../Services/auth-header";
 
 export const Faturat = () => {
 
@@ -8,7 +9,8 @@ export const Faturat = () => {
   function getFaturat(){
     const url = 'https://localhost:7013/api/Fatura'; 
     fetch(url, {
-      method: 'GET'
+      method: 'GET',
+      headers: authHeader()
     })
     .then(response => response.json())
     .then(faturatFromServer => {
@@ -23,7 +25,8 @@ export const Faturat = () => {
   function deleteFatura(idFatura){
     const url = `https://localhost:7013/api/Fatura/${idFatura}`; 
     fetch(url, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: authHeader()
     })
     .then(response => response.json())
     .then(responseFromServer => {
@@ -39,7 +42,7 @@ export const Faturat = () => {
   useEffect(getFaturat,[]);
 
   return (
-    <div className='table-responsive mt-1 mx-5'>
+    <div className='table-responsive mt-1 mx-5' style={{paddingLeft: "13%"}}>
       <h3>Faturat</h3>
     <table className='table table-striped'>
       <thead>

@@ -46,10 +46,9 @@ function App(){
       <Router>
       
         <Switch>
-         <Route exact path="/login" component={Login}/>
+         <Route exact path="/" component={Login}/>
           <div>
           <Nav />
-          <Route exact path="/" component={Home}/>
           <Route exact path="/home" component={Home}/>
           <Route exact path="/dhomat" component={Dhomat}/>
           <Route exact path="/addDhoma" component={AddDhoma}/>

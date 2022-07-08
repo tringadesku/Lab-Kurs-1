@@ -72,7 +72,7 @@ export const EditInfuzioni = (props) => {
   });
 
   return (
-    <div style={{marginRight: "33%"}}>
+    <div style={{marginRight: "33%", paddingLeft: "18%"}}>
       <form className="w-100 px-5" action="">
         <h1 className="mt-5">Edito Infuzionin</h1>
 

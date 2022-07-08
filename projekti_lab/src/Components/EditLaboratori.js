@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
+import authHeader from "../Services/auth-header";
 
 
 export const EditLaboratori = (props) => {
@@ -10,7 +11,8 @@ export const EditLaboratori = (props) => {
   function getLaboratoriById(){
     const url = `https://localhost:7013/api/Laboratori/${nrAnalizes}`;
     fetch(url, {
-      method: 'GET'
+      method: 'GET',
+      headers: authHeader()
     })
     .then(response => response.json())
     .then(laboratoriFromServer => {
@@ -48,7 +50,8 @@ export const EditLaboratori = (props) => {
     fetch(url, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization' : 'bearer ' + (localStorage.getItem("usertoken"))
       },
       body: JSON.stringify(laboratoriToEdit)
     })
@@ -67,7 +70,7 @@ export const EditLaboratori = (props) => {
   });
 
   return (
-    <div style={{marginRight: "33%"}}>
+    <div style={{marginRight: "33%", paddingLeft: "18%"}}>
       <form className="w-100 px-5" action="">
         <h1 className="mt-5">Edito Analizen</h1>
 

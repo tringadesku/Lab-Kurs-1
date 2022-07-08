@@ -1,5 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { BsPersonLinesFill, BsFillPersonFill} from "react-icons/bs"
+import {RiBillLine, RiSyringeLine} from "react-icons/ri"
+import {AiOutlineCalendar} from "react-icons/ai"
+import {BiUserCircle} from "react-icons/bi"
+import {MdMeetingRoom, MdOutlineEmergency} from "react-icons/md"
+import {GiMedicalDrip, GiLoveInjection} from "react-icons/gi"
+import {TbReportMedical} from "react-icons/tb"
+
+
+
+
+
 
 export const Nav = () => {
 
@@ -53,32 +65,31 @@ export const Nav = () => {
 
   function logout(){
     localStorage.clear();
-    {window.location.href="/login"}
+    {window.location.href="/"}
   }
   return (
     <div>
       <nav className="navbar navbar-light mt-5 mx-5 bg-secondary" style={{display: "flex"}}>
-        <h1 className='p-1 text-light'>Dashboard</h1>
-        <div>
-        <h5 className='text-light'>User: {emri} {mbiemri}</h5>
-        <h5 className='text-light'>Role: {roli} </h5>
+        <h1 className='p-1 text-light'>Hospital Management System</h1>
+        <div style={{display: "flex"}}>
+        <h5 className='text-light' style={{alignSelf: "flex-end"}}><BiUserCircle/>{emri} {mbiemri}, {roli}</h5>
+        <Link to="/" onClick={logout} className="btn btn-danger btn-md w-15 mt-3 mx-5">Log Out</Link>
         </div>
-        {usertoken && (checkAdmin() || checkInfermier()) && <Link to="/dhomat" onClick={() => {window.location.href="/dhomat"}} className="btn btn-secondary btn-lg w-15 mt-3">Dhomat</Link>}
-        {usertoken && checkRecepsionist() && <Link to="/pacientat" onClick={() => {window.location.href="/pacientat"}} className="btn btn-secondary btn-lg w-15  mt-3">Pacientat</Link>}
-        {usertoken && checkRecepsionist() && <Link to="/faturat" onClick={() => {window.location.href="/faturat"}} className="btn btn-secondary btn-lg w-15  mt-3">Faturat</Link>}
-        {usertoken && (checkRecepsionist || checkMjek()) && <Link to="/terminet" onClick={() => {window.location.href="/terminet"}} className="btn btn-secondary btn-lg w-15  mt-3">Terminet</Link>}
-        {usertoken && checkAdmin() && <Link to="/users" onClick={() => {window.location.href="/users"}} className="btn btn-secondary btn-lg w-15  mt-3">Users</Link>}
-        {usertoken && checkInfermier() && <Link to="/infuzionet" onClick={() => {window.location.href="/infuzionet"}} className="btn btn-secondary btn-lg w-15  mt-3">Infuzionet</Link>}
-        {usertoken && checkMjek() && <Link to="/kontrollat" onClick={() => {window.location.href="/kontrollat"}} className="btn btn-secondary btn-lg w-15  mt-3">Kontrollat</Link>}
-        {usertoken && checkMjek() && <Link to="/praktikantet" onClick={() => {window.location.href="/praktikantet"}} className="btn btn-secondary btn-lg w-15  mt-3">Praktikantet</Link>}
-        {usertoken && checkLaborant() && <Link to="/laboratori" onClick={() => {window.location.href="/laboratori"}} className="btn btn-secondary btn-lg w-15  mt-3">Laboratori</Link>}
-        {usertoken && checkMjek() && <Link to="/operacionet" onClick={() => {window.location.href="/operacionet"}} className="btn btn-secondary btn-lg w-15  mt-3">Operacioni</Link>}
-        <Link to="/login" onClick={logout} className="btn btn-danger btn-lg w-15 mt-3 mx-5">Log Out</Link>
-
       </nav>
 
-
-
+      <nav className="navbar row navbar-light mx-5 mt-2 bg-secondary" style={{width: "12%", position: "absolute", height: "80%", alignContent: 'flex-start'}}>
+      {usertoken && (checkAdmin() || checkInfermier()) && <Link to="/dhomat" onClick={() => {window.location.href="/dhomat"}} className="btn btn-secondary btn-lg rounded-0 text-start"><MdMeetingRoom/> Dhomat</Link>}
+        {usertoken && checkRecepsionist() && <Link to="/pacientat" onClick={() => {window.location.href="/pacientat"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"> <BsPersonLinesFill /> Pacientat</Link>}
+        {usertoken && checkRecepsionist() && <Link to="/faturat" onClick={() => {window.location.href="/faturat"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"> <RiBillLine/> Faturat</Link>}
+        {usertoken && (checkRecepsionist() || checkMjek()) && <Link to="/terminet" onClick={() => {window.location.href="/terminet"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"> <AiOutlineCalendar/> Terminet</Link>}
+        {usertoken && checkAdmin() && <Link to="/users" onClick={() => {window.location.href="/users"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"> <BiUserCircle/> Users</Link>}
+        {usertoken && checkInfermier() && <Link to="/infuzionet" onClick={() => {window.location.href="/infuzionet"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"><GiMedicalDrip /> Infuzionet</Link>}
+        {usertoken && checkMjek() && <Link to="/kontrollat" onClick={() => {window.location.href="/kontrollat"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"><TbReportMedical/> Kontrollat</Link>}
+        {usertoken && checkMjek() && <Link to="/praktikantet" onClick={() => {window.location.href="/praktikantet"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"><BsFillPersonFill/> Praktikantet</Link>}
+        {usertoken && (checkLaborant() || checkMjek()) && <Link to="/laboratori" onClick={() => {window.location.href="/laboratori"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"><RiSyringeLine/> Laboratori</Link>}
+        {usertoken && checkMjek() && <Link to="/operacionet" onClick={() => {window.location.href="/operacionet"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"><GiLoveInjection/> Operacionet</Link>}
+        {usertoken && checkMjek() && <Link to="/ambulancat" onClick={() => {window.location.href="/ambulancat"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"><MdOutlineEmergency/> Ambulanca</Link>}
+      </nav>
       </div>
 
       

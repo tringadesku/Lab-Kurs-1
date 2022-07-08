@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
+import authHeader from "../Services/auth-header";
 
 
 export const EditAmbulanca = (props) => {
@@ -12,7 +13,8 @@ export const EditAmbulanca = (props) => {
   function getAmbulancaById(){
     const url = `https://localhost:7013/api/Ambulanca/${nrAuto}`;
     fetch(url, {
-      method: 'GET'
+      method: 'GET',
+      headers: authHeader()
     })
     .then(response => response.json())
     .then(ambulancaFromServer => {
@@ -48,7 +50,8 @@ export const EditAmbulanca = (props) => {
     fetch(url, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization' : 'bearer ' + (localStorage.getItem("usertoken"))
       },
       body: JSON.stringify(ambulancaToEdit)
     })
@@ -67,7 +70,7 @@ export const EditAmbulanca = (props) => {
   });
 
   return (
-    <div style={{marginRight: "33%"}}>
+    <div style={{marginRight: "33%", paddingLeft: "18%"}}>
       <form className="w-100 px-5" action="">
         <h1 className="mt-5">Edito Ambulancen</h1>
 

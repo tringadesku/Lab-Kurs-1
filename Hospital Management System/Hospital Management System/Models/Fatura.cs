@@ -16,6 +16,7 @@ namespace Hospital_Management_System.Models
 
         [JsonIgnore]
         public virtual Pacienti? IdPacientiNavigation { get; set; }
+        [JsonIgnore]
         public virtual User? IdUserRecepsionistiNavigation { get; set; }
     }
 }

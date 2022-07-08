@@ -42,7 +42,7 @@ export const Dhomat = () => {
   useEffect(getDhomat,[]);
 
   return (
-    <div className='table-responsive mt-1 mx-5'>
+    <div className='table-responsive mt-1 mx-5' style={{paddingLeft: "13%"}}>
       <h3>Dhomat</h3>
     <table className='table table-striped'>
       <thead>

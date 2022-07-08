@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import authHeader from "../Services/auth-header";
+
 
 export const Kontrollat = () => {
 
@@ -8,7 +10,8 @@ export const Kontrollat = () => {
   function getKontrollat(){
     const url = 'https://localhost:7013/api/Kontrolla'; 
     fetch(url, {
-      method: 'GET'
+      method: 'GET',
+      headers: authHeader()
     })
     .then(response => response.json())
     .then(kontrollatFromServer => {
@@ -23,7 +26,8 @@ export const Kontrollat = () => {
   function deleteKontrolla(idKontrolla){
     const url = `https://localhost:7013/api/Kontrolla/${idKontrolla}`; 
     fetch(url, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: authHeader()
     })
     .then(response => response.json())
     .then(responseFromServer => {
@@ -39,7 +43,7 @@ export const Kontrollat = () => {
   useEffect(getKontrollat,[]);
 
   return (
-    <div className='table-responsive mt-1 mx-5'>
+    <div className='table-responsive mt-1 mx-5' style={{paddingLeft: "13%"}}>
       <h3>Kontrollat</h3>
     <table className='table table-striped'>
       <thead>

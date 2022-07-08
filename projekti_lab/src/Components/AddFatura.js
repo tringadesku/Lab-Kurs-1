@@ -31,7 +31,8 @@ export const AddFatura = () => {
       fetch(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization' : 'bearer ' + (localStorage.getItem("usertoken"))
         },
         body: JSON.stringify(faturaToAdd)
       })
@@ -53,7 +54,7 @@ export const AddFatura = () => {
 
   );
   return (
-      <div style={{marginRight: "33%"}}>
+      <div style={{marginRight: "33%", paddingLeft: "18%"}}>
         <form className="w-100 px-5" action="">
           <h1 className="mt-5">Shto Fature te re:</h1>
 

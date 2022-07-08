@@ -6,7 +6,7 @@ namespace Hospital_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Laborant")]
+    [Authorize(Roles = "Laborant,Mjek")]
     public class LaboratoriController : ControllerBase
     {
         private readonly draft1Context _dataContext;

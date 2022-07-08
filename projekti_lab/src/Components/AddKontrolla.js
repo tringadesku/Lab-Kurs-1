@@ -29,7 +29,8 @@ export const AddKontrolla = () => {
       fetch(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization' : 'bearer ' + (localStorage.getItem("usertoken"))
         },
         body: JSON.stringify(kontrollaToAdd)
       })
@@ -51,7 +52,7 @@ export const AddKontrolla = () => {
 
   );
   return (
-      <div style={{marginRight: "33%"}}>
+      <div style={{marginRight: "33%", paddingLeft: "18%"}}>
         <form className="w-100 px-5" action="">
           <h1 className="mt-5">Shto Kontrolle te re:</h1>
 

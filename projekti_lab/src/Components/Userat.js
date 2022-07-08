@@ -41,8 +41,22 @@ export const Userat = () => {
 
   useEffect(getUsers,[]);
 
+  function checkInfermier(){
+    const roli = (localStorage.getItem("user_role"));
+    if (roli == "Infermier"){
+      return true;
+    }
+  }
+
+  function checkAdmin(){
+    const roli = (localStorage.getItem("user_role"));
+    if (roli == "Admin"){
+      return true;
+    }
+  }
+
   return (
-    <div className='table-responsive mt-1 mx-5'>
+    <div className='table-responsive mt-1 mx-5' style={{paddingLeft: "13%"}}>
       <h3>Users</h3>
     <table className='table table-striped'>
       <thead>

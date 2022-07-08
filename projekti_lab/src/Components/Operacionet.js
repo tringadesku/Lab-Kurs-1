@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import authHeader from "../Services/auth-header";
 
 export const Operacionet = () => {
 
@@ -8,7 +9,8 @@ export const Operacionet = () => {
   function getOperacionet(){
     const url = 'https://localhost:7013/api/Operacioni'; 
     fetch(url, {
-      method: 'GET'
+      method: 'GET',
+      headers: authHeader()
     })
     .then(response => response.json())
     .then(operacionetFromServer => {
@@ -23,7 +25,8 @@ export const Operacionet = () => {
   function deleteOperacioni(idOperacioni){
     const url = `https://localhost:7013/api/Operacioni/${idOperacioni}`; 
     fetch(url, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: authHeader()
     })
     .then(response => response.json())
     .then(responseFromServer => {
@@ -39,7 +42,7 @@ export const Operacionet = () => {
   useEffect(getOperacionet,[]);
 
   return (
-    <div className='table-responsive mt-1 mx-5'>
+    <div className='table-responsive mt-1 mx-5' style={{paddingLeft: "13%"}}>
       <h3>Operacionet</h3>
     <table className='table table-striped'>
       <thead>
