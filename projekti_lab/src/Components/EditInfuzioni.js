@@ -98,12 +98,12 @@ export const EditInfuzioni = (props) => {
 
         <div className="mt-4">
           <label className="h3 form-label">Data</label>
-          <input value={formData.data} name="data" type="text" className="form-control" onChange={handleChange}/>
+          <input value={formData.data} name="data" type="date" className="form-control" onChange={handleChange}/>
         </div>
 
         <div className="mt-4">
           <label className="h3 form-label">Ora</label>
-          <input value={formData.ora} name="ora" type="text" className="form-control" onChange={handleChange}/>
+          <input value={formData.ora} name="ora" type="time" className="form-control" onChange={handleChange}/>
         </div>
 
         <button onClick={handleSubmit} className="btn btn-dark btn-lg w-100 mt-5">Edito</button>

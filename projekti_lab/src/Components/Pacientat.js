@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import authHeader from "../Services/auth-header";
+import moment from 'moment';
 
 export const Pacientat = () => {
 
@@ -68,7 +69,7 @@ export const Pacientat = () => {
             <td>{dbPacientat.idPacienti}</td>
             <td>{dbPacientat.emri}</td>
             <td>{dbPacientat.mbiemri}</td>
-            <td>{dbPacientat.ditelindja}</td>
+            <td>{moment.utc(dbPacientat.ditelindja).format('MM/DD/YY')}</td>
             <td>{dbPacientat.gjinia}</td>
             <td>{dbPacientat.shteti}</td>
             <td>{dbPacientat.qyteti}</td>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import authHeader from "../Services/auth-header";
+import moment from 'moment';
 
 export const Faturat = () => {
 
@@ -65,8 +66,8 @@ export const Faturat = () => {
           <td>{dbFaturat.idUserRecepsionisti}</td>
           <td>{dbFaturat.idPacienti}</td>
           <td>{dbFaturat.pershkrimi}</td>
-          <td>{dbFaturat.data}</td>
-          <td>{dbFaturat.pagesaTotale}</td>
+          <td>{moment.utc(dbFaturat.data).format('MM/DD/YY')}</td>
+          <td>{dbFaturat.pagesaTotale+" €"}</td>
           <td>{dbFaturat.statusi}</td>
           <td><Link to={`/editFatura/${dbFaturat.idFatura}`} className="btn btn-outline-success" onClick={() => {window.location.href=`/editFatura/${dbFaturat.idFatura}`}}>Edit</Link></td>
           <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Faturen "${dbFaturat.idFatura}"? `)) deleteFatura(dbFaturat.idFatura)}} className="btn btn-danger">Delete</button></td>

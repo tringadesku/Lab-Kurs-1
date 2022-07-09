@@ -70,12 +70,12 @@ export const AddInfuzioni = () => {
           
           <div className="mt-4">
             <label className="h3 form-label">Data</label>
-            <input  name="data" type="text" className="form-control" placeholder="Viti-Muaji-Dita" onChange={handleChange}/>
+            <input  name="data" type="date" className="form-control" placeholder="Viti-Muaji-Dita" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">
             <label className="h3 form-label">Ora</label>
-            <input  name="ora" type="text" className="form-control" placeholder="HH:MM" onChange={handleChange}/>
+            <input  name="ora" type="time" className="form-control" placeholder="HH:MM" onChange={handleChange}/>
           </div>
 
           <button onClick={handleSubmit} className="btn btn-dark btn-lg w-100 mt-5">Regjistro</button>

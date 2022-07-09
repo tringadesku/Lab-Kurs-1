@@ -7,7 +7,8 @@ import {BiUserCircle} from "react-icons/bi"
 import {MdMeetingRoom, MdOutlineEmergency} from "react-icons/md"
 import {GiMedicalDrip, GiLoveInjection} from "react-icons/gi"
 import {TbReportMedical} from "react-icons/tb"
-
+import {HiOutlineClipboardList} from "react-icons/hi"
+import {MdOutlineCoronavirus} from "react-icons/md"
 
 
 
@@ -19,42 +20,42 @@ export const Nav = () => {
 
   function checkRecepsionist(){
     const roli = (localStorage.getItem("user_role"));
-    if (roli == "Recepsionist"){
+    if (roli === "Recepsionist"){
       return true;
     }
   }
 
   function checkInfermier(){
     const roli = (localStorage.getItem("user_role"));
-    if (roli == "Infermier"){
+    if (roli ==="Infermier"){
       return true;
     }
   }
 
   function checkMjek(){
     const roli = (localStorage.getItem("user_role"));
-    if (roli == "Mjek"){
+    if (roli === "Mjek"){
       return true;
     }
   }
 
   function checkLaborant(){
     const roli = (localStorage.getItem("user_role"));
-    if (roli == "Laborant"){
+    if (roli === "Laborant"){
       return true;
     }
   }
 
   function checkInfermier(){
     const roli = (localStorage.getItem("user_role"));
-    if (roli == "Infermier"){
+    if (roli === "Infermier"){
       return true;
     }
   }
 
   function checkAdmin(){
     const roli = (localStorage.getItem("user_role"));
-    if (roli == "Admin"){
+    if (roli === "Admin"){
       return true;
     }
   }
@@ -81,12 +82,14 @@ export const Nav = () => {
       {usertoken && (checkAdmin() || checkInfermier()) && <Link to="/dhomat" onClick={() => {window.location.href="/dhomat"}} className="btn btn-secondary btn-lg rounded-0 text-start"><MdMeetingRoom/> Dhomat</Link>}
         {usertoken && checkRecepsionist() && <Link to="/pacientat" onClick={() => {window.location.href="/pacientat"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"> <BsPersonLinesFill /> Pacientat</Link>}
         {usertoken && checkRecepsionist() && <Link to="/faturat" onClick={() => {window.location.href="/faturat"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"> <RiBillLine/> Faturat</Link>}
+        {usertoken && checkRecepsionist() && <Link to="/trajtimet" onClick={() => {window.location.href="/trajtimet"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"> <HiOutlineClipboardList/> Trajtimet Mujore</Link>}
         {usertoken && (checkRecepsionist() || checkMjek()) && <Link to="/terminet" onClick={() => {window.location.href="/terminet"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"> <AiOutlineCalendar/> Terminet</Link>}
         {usertoken && checkAdmin() && <Link to="/users" onClick={() => {window.location.href="/users"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"> <BiUserCircle/> Users</Link>}
         {usertoken && checkInfermier() && <Link to="/infuzionet" onClick={() => {window.location.href="/infuzionet"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"><GiMedicalDrip /> Infuzionet</Link>}
         {usertoken && checkMjek() && <Link to="/kontrollat" onClick={() => {window.location.href="/kontrollat"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"><TbReportMedical/> Kontrollat</Link>}
         {usertoken && checkMjek() && <Link to="/praktikantet" onClick={() => {window.location.href="/praktikantet"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"><BsFillPersonFill/> Praktikantet</Link>}
         {usertoken && (checkLaborant() || checkMjek()) && <Link to="/laboratori" onClick={() => {window.location.href="/laboratori"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"><RiSyringeLine/> Laboratori</Link>}
+        {usertoken && (checkLaborant() || checkMjek()) && <Link to="/CovidLab" onClick={() => {window.location.href="/CovidLab"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"><MdOutlineCoronavirus/> Covid Laboratori</Link>}
         {usertoken && checkMjek() && <Link to="/operacionet" onClick={() => {window.location.href="/operacionet"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"><GiLoveInjection/> Operacionet</Link>}
         {usertoken && checkMjek() && <Link to="/ambulancat" onClick={() => {window.location.href="/ambulancat"}} className="btn btn-secondary btn-lg w-15 rounded-0 text-start"><MdOutlineEmergency/> Ambulanca</Link>}
       </nav>

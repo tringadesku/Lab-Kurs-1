@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import authHeader from "../Services/auth-header";
+import moment from 'moment';
 
 export const Laboratori = () => {
 
@@ -62,7 +63,7 @@ export const Laboratori = () => {
           <td>{dbLaboratorat.nrAnalizes}</td>
           <td>{dbLaboratorat.idUserLaboranti}</td>
           <td>{dbLaboratorat.idPacienti}</td>
-          <td>{dbLaboratorat.data}</td>
+          <td>{moment.utc(dbLaboratorat.data).format('MM/DD/YY')}</td>
           <td>{dbLaboratorat.lloji}</td>
           <td><Link to={`/editLaboratori/${dbLaboratorat.nrAnalizes}`} className="btn btn-outline-success" onClick={() => {window.location.href=`/editLaboratori/${dbLaboratorat.nrAnalizes}`}}>Edit</Link></td>
           <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Analizen "${dbLaboratorat.nrAnalizes}"? `)) deleteLaboratori(dbLaboratorat.nrAnalizes)}} className="btn btn-danger">Delete</button></td>
@@ -90,7 +91,7 @@ export const Laboratori = () => {
   
     setdbLaboratorat(laboratoriCopy);
   
-    alert("Laboratori u fshi me sukses!");
+    alert("Analiza u fshi me sukses!");
   }
 
 }

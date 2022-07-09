@@ -48,8 +48,8 @@ export const AddPacienti = () => {
       });
 
       alert('Pacienti u shtua me sukses!');
-      console.log(pacientiToAdd);
-      //window.location.href="/pacientat"
+      //console.log(pacientiToAdd);
+      window.location.href="/pacientat"
 
       
 
@@ -63,7 +63,7 @@ export const AddPacienti = () => {
 
           <div className="mt-4">
             <label className="h3 form-label">ID</label>
-            <input  name="idPacienti" type="text" className="form-control" onChange={handleChange}/>
+            <input  name="idPacienti" type="number" className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">
@@ -78,7 +78,7 @@ export const AddPacienti = () => {
 
           <div className="mt-4">
             <label className="h3 form-label">Ditelindja</label>
-            <input  name="ditelindja" type="text" placeholder="viti-muaji-dita" className="form-control" onChange={handleChange}/>
+            <input  name="ditelindja" type="date" placeholder="viti-muaji-dita" className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">

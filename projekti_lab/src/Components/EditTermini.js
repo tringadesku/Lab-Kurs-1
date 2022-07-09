@@ -39,7 +39,7 @@ export const EditTermini = (props) => {
     e.preventDefault();
 
     const terminiToEdit = {
-      idTermini: formData.idTermini,
+      idTermini: idTermini,
       idMjeku : formData.idMjeku,
       idPacienti : formData.idPacienti,
       data : formData.data,
@@ -93,12 +93,12 @@ export const EditTermini = (props) => {
 
         <div className="mt-4">
           <label className="h3 form-label">Data</label>
-          <input value={formData.data} name="data" type="text" className="form-control" onChange={handleChange}/>
+          <input value={formData.data} name="data" type="date" className="form-control" onChange={handleChange}/>
         </div>
 
         <div className="mt-4">
           <label className="h3 form-label">Ora</label>
-          <input value={formData.ora} name="ora" type="text" className="form-control" onChange={handleChange}/>
+          <input value={formData.ora} name="ora" type="time" className="form-control" onChange={handleChange}/>
         </div>
 
         <div className="mt-4">

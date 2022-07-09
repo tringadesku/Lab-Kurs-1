@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import authHeader from "../Services/auth-header";
+import moment from 'moment';
 
 
 export const Terminet = () => {
@@ -64,7 +65,7 @@ export const Terminet = () => {
           <td>{dbTerminet.idTermini}</td>
           <td>{dbTerminet.idMjeku}</td>
           <td>{dbTerminet.idPacienti}</td>
-          <td>{dbTerminet.data}</td>
+          <td>{moment.utc(dbTerminet.data).format('MM/DD/YY')}</td>
           <td>{dbTerminet.ora}</td>
           <td>{dbTerminet.lloji}</td>
           <td><Link to={`/editTermini/${dbTerminet.idTermini}`} className="btn btn-outline-success" onClick={() => {window.location.href=`/editTermini/${dbTerminet.idTermini}`}}>Edit</Link></td>

@@ -36,6 +36,12 @@ import { EditOperacioni } from "./Components/EditOperacioni";
 import { Terminet } from "./Components/Terminet";
 import { AddTermini } from "./Components/AddTermini";
 import { EditTermini } from "./Components/EditTermini";
+import { TrajtimetMujore } from "./Components/TrajtimetMujore";
+import { AddTrajtimiMujor } from "./Components/AddTrajtimiMujor";
+import { EditTrajtimiMujor } from "./Components/EditTrajtimiMujor";
+import { CovidLab } from "./Components/CovidLab";
+import { AddCovidLab } from "./Components/AddCovidLab";
+import { EditCovidLab } from "./Components/EditCovidLab";
 
 
 function App(){
@@ -83,6 +89,12 @@ function App(){
           <Route path="/terminet" component={Terminet}/>
           <Route exact path="/addTermini" component={AddTermini}/>
           <Route path="/editTermini/:id" component={EditTermini}/>
+          <Route path="/trajtimet" component={TrajtimetMujore}/>
+          <Route exact path="/addTrajtimi" component={AddTrajtimiMujor}/>
+          <Route path="/editTrajtimi/:id" component={EditTrajtimiMujor}/>
+          <Route path="/CovidLab" component={CovidLab}/>
+          <Route exact path="/addCovidLab" component={AddCovidLab}/>
+          <Route path="/editCovidLab/:id" component={EditCovidLab}/>
           </div>
         </Switch>
       </Router>

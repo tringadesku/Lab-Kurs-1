@@ -22,7 +22,7 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Laboratori>> Get(string id)
+        public async Task<ActionResult<Laboratori>> Get(int id)
         {
             var i = await _dataContext.Laboratoris.FindAsync(id);
             if (i == null)
@@ -57,7 +57,8 @@ namespace Hospital_Management_System.Controllers
             return Ok(await _dataContext.Laboratoris.ToListAsync());
         }
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<Laboratori>>> Delete(string id)
+  
+        public async Task<ActionResult<List<Laboratori>>> Delete(int id)
         {
             var dbLaboratori = await _dataContext.Laboratoris.FindAsync(id);
             if (dbLaboratori == null)

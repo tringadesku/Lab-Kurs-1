@@ -98,7 +98,7 @@ export const EditPacienti = (props) => {
 
           <div className="mt-4">
             <label className="h3 form-label">Ditelindja</label>
-            <input value={formData.ditelindja} name="ditelindja" type="text" className="form-control" onChange={handleChange}/>
+            <input value={formData.ditelindja} name="ditelindja" type="date" className="form-control" onChange={handleChange}/>
           </div>
 
           <div className="mt-4">

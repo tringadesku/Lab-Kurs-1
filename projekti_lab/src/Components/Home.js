@@ -1,7 +1,8 @@
-import React from 'react'
+import React,{Component} from 'react'
 import { Link } from 'react-router-dom'
 import {Dhomat} from './Dhomat'
 import { BsPersonLinesFill } from "react-icons/bs";
+
 
 
 export const Home = () => {
@@ -14,7 +15,6 @@ export const Home = () => {
       <h5 className='mx-5'>Welcome,{emri} {mbiemri} !</h5>
       
     </div>
-
     
   )
 }
