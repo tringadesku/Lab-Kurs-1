@@ -16,7 +16,7 @@ export const AddLaboratori = () => {
     e.preventDefault();
 
     const laboratoriToAdd = {
-      iduserLaboranti: formData.iduserLaboranti,
+      idUserLaboranti: formData.idUserLaboranti,
       idPacienti: formData.idPacienti,
       data: formData.data,
       lloji: formData.lloji,

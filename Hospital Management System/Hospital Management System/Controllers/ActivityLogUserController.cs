@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hospital_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class ActivityLogUserController : ControllerBase
     {
         private readonly draft1Context _dataContext;
@@ -15,6 +16,8 @@ namespace Hospital_Management_System.Controllers
             _dataContext = dataContext;
         }
 
+
+
         [HttpGet]
         public async Task<ActionResult<List<ActivityLogUser>>> Get()
         {
@@ -22,48 +25,20 @@ namespace Hospital_Management_System.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ActivityLogUser>> Get(string id)
+        public async Task<ActionResult<ActivityLogUser>> Get(int id)
         {
-            var i = await _dataContext.ActivityLogUsers.FindAsync(id);
-            if (i == null)
-                return BadRequest("ActivityLogUser not found!");
-            return Ok(i);
+            var activity = await _dataContext.ActivityLogUsers.FindAsync(id);
+            if (activity == null)
+                return BadRequest("Activity not found!");
+            return Ok(activity);
         }
+
 
         [HttpPost]
-        public async Task<ActionResult<List<ActivityLogUser>>> AddActivityLogUser(ActivityLogUser i)
+        public async Task<ActionResult<List<ActivityLogUser>>> AddActivity(ActivityLogUser activity)
         {
-            _dataContext.ActivityLogUsers.Add(i);
+            _dataContext.ActivityLogUsers.Add(activity);
             await _dataContext.SaveChangesAsync();
-            return Ok(await _dataContext.ActivityLogUsers.ToListAsync());
-        }
-
-        [HttpPut]
-        public async Task<ActionResult<List<ActivityLogUser>>> UpdateActivityLogUser(ActivityLogUser request)
-        {
-            var dbActivityLogUser = await _dataContext.ActivityLogUsers.FindAsync(request.Id);
-            if (dbActivityLogUser == null)
-                return BadRequest("ActivityLogUser not found!");
-
-            dbActivityLogUser.Id = request.Id;
-            dbActivityLogUser.IdUserAdmin = request.IdUserAdmin;
-            dbActivityLogUser.Activity = request.Activity;
-            dbActivityLogUser.Ora = request.Ora;
-
-            await _dataContext.SaveChangesAsync();
-
-            return Ok(await _dataContext.ActivityLogUsers.ToListAsync());
-        }
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<List<ActivityLogUser>>> Delete(string id)
-        {
-            var dbActivityLogUser = await _dataContext.ActivityLogUsers.FindAsync(id);
-            if (dbActivityLogUser == null)
-                return BadRequest("ActivityLogUser not found!");
-
-            _dataContext.ActivityLogUsers.Remove(dbActivityLogUser);
-            await _dataContext.SaveChangesAsync();
-
             return Ok(await _dataContext.ActivityLogUsers.ToListAsync());
         }
 

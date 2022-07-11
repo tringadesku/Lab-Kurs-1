@@ -38,9 +38,9 @@ export const EditLaboratori = (props) => {
     e.preventDefault();
 
     const laboratoriToEdit = {
-      nrAnalizes: formData.nrAnalizes,
       idUserLaboranti: formData.idUserLaboranti,
       idPacienti : formData.idPacienti,
+      nrAnalizes: formData.nrAnalizes,
       data : formData.data,
       lloji: formData.lloji
     };

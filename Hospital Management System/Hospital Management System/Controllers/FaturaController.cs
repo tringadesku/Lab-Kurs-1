@@ -36,6 +36,26 @@ namespace Hospital_Management_System.Controllers
             _dataContext.Faturas.Add(i);
             await _dataContext.SaveChangesAsync();
             return Ok(await _dataContext.Faturas.ToListAsync());
+
+
+            string LoggedUserId = User.Claims.FirstOrDefault(c => c.Type == "id").Value;
+            string LoggedUserEmri = User.Claims.FirstOrDefault(c => c.Type == "emri").Value;
+            string LoggedUserMbiemri = User.Claims.FirstOrDefault(c => c.Type == "mbiemri").Value;
+
+
+            ActivityLogUser aktiviteti = new ActivityLogUser
+            {
+                UseriLoggedId = LoggedUserId,
+                UseriLoggedName = LoggedUserEmri + " " + LoggedUserMbiemri,
+                ActivityOn = i.Pershkrimi,
+                Activity = "created Fatura",
+                Ora = DateTime.Now
+            };
+
+            ActivityLogUserController ak = new ActivityLogUserController(_dataContext);
+
+
+            await ak.AddActivity(aktiviteti);
         }
 
         [HttpPut]
@@ -55,6 +75,25 @@ namespace Hospital_Management_System.Controllers
 
             await _dataContext.SaveChangesAsync();
 
+            string LoggedUserId = User.Claims.FirstOrDefault(c => c.Type == "id").Value;
+            string LoggedUserEmri = User.Claims.FirstOrDefault(c => c.Type == "emri").Value;
+            string LoggedUserMbiemri = User.Claims.FirstOrDefault(c => c.Type == "mbiemri").Value;
+
+
+            ActivityLogUser aktiviteti = new ActivityLogUser
+            {
+                UseriLoggedId = LoggedUserId,
+                UseriLoggedName = LoggedUserEmri + " " + LoggedUserMbiemri,
+                ActivityOn = Convert.ToString(dbFatura.IdFatura),
+                Activity = "edited Fatura",
+                Ora = DateTime.Now
+            };
+
+            ActivityLogUserController ak = new ActivityLogUserController(_dataContext);
+
+
+            await ak.AddActivity(aktiviteti);
+
             return Ok(await _dataContext.Faturas.ToListAsync());
         }
         [HttpDelete("{id}")]
@@ -64,8 +103,28 @@ namespace Hospital_Management_System.Controllers
             if (dbFatura == null)
                 return BadRequest("Fatura not found!");
 
+
+            string LoggedUserId = User.Claims.FirstOrDefault(c => c.Type == "id").Value;
+            string LoggedUserEmri = User.Claims.FirstOrDefault(c => c.Type == "emri").Value;
+            string LoggedUserMbiemri = User.Claims.FirstOrDefault(c => c.Type == "mbiemri").Value;
+
+
+            ActivityLogUser aktiviteti = new ActivityLogUser
+            {
+                UseriLoggedId = LoggedUserId,
+                UseriLoggedName = LoggedUserEmri + " " + LoggedUserMbiemri,
+                ActivityOn = Convert.ToString(dbFatura.IdFatura),
+                Activity = "deleted Fatura",
+                Ora = DateTime.Now
+            };
+
+            ActivityLogUserController ak = new ActivityLogUserController(_dataContext);
+
             _dataContext.Faturas.Remove(dbFatura);
             await _dataContext.SaveChangesAsync();
+
+
+            await ak.AddActivity(aktiviteti);
 
             return Ok(await _dataContext.Faturas.ToListAsync());
         }

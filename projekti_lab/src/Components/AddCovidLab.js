@@ -16,8 +16,8 @@ export const AddCovidLab = () => {
     e.preventDefault();
 
     const CovidLabToAdd = {
-      analizaId:formData.analizaId,
-      iduserLaboranti: formData.iduserLaboranti,
+      analizaId: formData.analizaId,
+      idUserLaboranti: formData.idUserLaboranti,
       pacientiId: formData.pacientiId,
       llojiTestit: formData.llojiTestit,
       mostra: formData.mostra,
@@ -45,8 +45,8 @@ export const AddCovidLab = () => {
       });
 
 
-      alert('Covid-Analiza u shtua me sukses!');
-      {window.location.href="/CovidLab"}
+      //alert('Covid-Analiza u shtua me sukses!');
+      //{window.location.href="/CovidLab"}
       
 
     }

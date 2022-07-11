@@ -36,6 +36,27 @@ namespace Hospital_Management_System.Controllers
         {
             _dataContext.Pacientis.Add(p);
             await _dataContext.SaveChangesAsync();
+
+
+            string LoggedUserId = User.Claims.FirstOrDefault(c => c.Type == "id").Value;
+            string LoggedUserEmri = User.Claims.FirstOrDefault(c => c.Type == "emri").Value;
+            string LoggedUserMbiemri = User.Claims.FirstOrDefault(c => c.Type == "mbiemri").Value;
+
+
+            ActivityLogUser aktiviteti = new ActivityLogUser
+            {
+                UseriLoggedId = LoggedUserId,
+                UseriLoggedName = LoggedUserEmri + " " + LoggedUserMbiemri,
+                ActivityOn = Convert.ToString(p.IdPacienti),
+                Activity = "created Pacienti",
+                Ora = DateTime.Now
+            };
+
+            ActivityLogUserController ak = new ActivityLogUserController(_dataContext);
+
+
+            await ak.AddActivity(aktiviteti);
+
             return Ok(await _dataContext.Pacientis.ToListAsync());
         }
 
@@ -61,6 +82,26 @@ namespace Hospital_Management_System.Controllers
 
             await _dataContext.SaveChangesAsync();
 
+
+            string LoggedUserId = User.Claims.FirstOrDefault(c => c.Type == "id").Value;
+            string LoggedUserEmri = User.Claims.FirstOrDefault(c => c.Type == "emri").Value;
+            string LoggedUserMbiemri = User.Claims.FirstOrDefault(c => c.Type == "mbiemri").Value;
+
+
+            ActivityLogUser aktiviteti = new ActivityLogUser
+            {
+                UseriLoggedId = LoggedUserId,
+                UseriLoggedName = LoggedUserEmri + " " + LoggedUserMbiemri,
+                ActivityOn = Convert.ToString(request.IdPacienti),
+                Activity = "edited Pacienti",
+                Ora = DateTime.Now
+            };
+
+            ActivityLogUserController ak = new ActivityLogUserController(_dataContext);
+
+
+            await ak.AddActivity(aktiviteti);
+
             return Ok(await _dataContext.Pacientis.ToListAsync());
         }
 
@@ -71,8 +112,30 @@ namespace Hospital_Management_System.Controllers
             if (dbPacienti == null)
                 return BadRequest("Pacienti not found!");
 
+
+            string LoggedUserId = User.Claims.FirstOrDefault(c => c.Type == "id").Value;
+            string LoggedUserEmri = User.Claims.FirstOrDefault(c => c.Type == "emri").Value;
+            string LoggedUserMbiemri = User.Claims.FirstOrDefault(c => c.Type == "mbiemri").Value;
+
+
+            ActivityLogUser aktiviteti = new ActivityLogUser
+            {
+                UseriLoggedId = LoggedUserId,
+                UseriLoggedName = LoggedUserEmri + " " + LoggedUserMbiemri,
+                ActivityOn = Convert.ToString(dbPacienti.IdPacienti),
+                Activity = "deleted Pacienti",
+                Ora = DateTime.Now
+            };
+
+
+
             _dataContext.Pacientis.Remove(dbPacienti);
             await _dataContext.SaveChangesAsync();
+
+            ActivityLogUserController ak = new ActivityLogUserController(_dataContext);
+
+
+            await ak.AddActivity(aktiviteti);
 
             return Ok(await _dataContext.Pacientis.ToListAsync());
         }

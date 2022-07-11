@@ -42,6 +42,7 @@ import { EditTrajtimiMujor } from "./Components/EditTrajtimiMujor";
 import { CovidLab } from "./Components/CovidLab";
 import { AddCovidLab } from "./Components/AddCovidLab";
 import { EditCovidLab } from "./Components/EditCovidLab";
+import {ActivityLog} from "./Components/ActivityLog"
 
 
 function App(){
@@ -95,6 +96,7 @@ function App(){
           <Route path="/CovidLab" component={CovidLab}/>
           <Route exact path="/addCovidLab" component={AddCovidLab}/>
           <Route path="/editCovidLab/:id" component={EditCovidLab}/>
+          <Route exact path="/activitylog" component={ActivityLog}/> 
           </div>
         </Switch>
       </Router>

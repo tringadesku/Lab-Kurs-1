@@ -6,36 +6,35 @@ namespace Hospital_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Recepsionist")]
-    public class TrajtimetMujoreController : ControllerBase
+    [Authorize(Roles = "Laborant,Mjek")]
+    public class CovidLabController : ControllerBase
     {
         private readonly draft1Context _dataContext;
-        public TrajtimetMujoreController(draft1Context dataContext)
+        public CovidLabController(draft1Context dataContext)
         {
             _dataContext = dataContext;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<TrajtimetMujore>>> Get()
+        public async Task<ActionResult<List<CovidLab>>> Get()
         {
-            return Ok(await _dataContext.TrajtimetMujores.ToListAsync());
+            return Ok(await _dataContext.CovidLabs.ToListAsync());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TrajtimetMujore>> Get(int id)
+        public async Task<ActionResult<CovidLab>> Get(int id)
         {
-            var i = await _dataContext.TrajtimetMujores.FindAsync(id);
+            var i = await _dataContext.CovidLabs.FindAsync(id);
             if (i == null)
-                return BadRequest("Trajtimi not found!");
+                return BadRequest("Covid Laboratori not found!");
             return Ok(i);
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<TrajtimetMujore>>> AddTrajtimetMujore(TrajtimetMujore i)
+        public async Task<ActionResult<List<CovidLab>>> AddCovidLab(CovidLab i)
         {
-            _dataContext.TrajtimetMujores.Add(i);
+            _dataContext.CovidLabs.Add(i);
             await _dataContext.SaveChangesAsync();
-
 
             string LoggedUserId = User.Claims.FirstOrDefault(c => c.Type == "id").Value;
             string LoggedUserEmri = User.Claims.FirstOrDefault(c => c.Type == "emri").Value;
@@ -46,8 +45,8 @@ namespace Hospital_Management_System.Controllers
             {
                 UseriLoggedId = LoggedUserId,
                 UseriLoggedName = LoggedUserEmri + " " + LoggedUserMbiemri,
-                ActivityOn = i.Lloji,
-                Activity = "created Trajtimi Mujor",
+                ActivityOn = i.LlojiTestit,
+                Activity = "created Covid Lab Test",
                 Ora = DateTime.Now
             };
 
@@ -56,25 +55,29 @@ namespace Hospital_Management_System.Controllers
 
             await ak.AddActivity(aktiviteti);
 
-            return Ok(await _dataContext.TrajtimetMujores.ToListAsync());
+
+            return Ok(await _dataContext.CovidLabs.ToListAsync());
+
+
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<TrajtimetMujore>>> UpdateTrajtimetMujore(TrajtimetMujore request)
+        public async Task<ActionResult<List<CovidLab>>> UpdateCovidLab(CovidLab request)
         {
-            var dbTrajtimetMujore = await _dataContext.TrajtimetMujores.FindAsync(request.NrT);
-            if (dbTrajtimetMujore == null)
-                return BadRequest("Trajtimi not found!");
+            var dbCovidLab = await _dataContext.CovidLabs.FindAsync(request.AnalizaId);
+            if (dbCovidLab == null)
+                return BadRequest("Covid Laboratori not found!");
 
-            dbTrajtimetMujore.NrT = request.NrT;
-            dbTrajtimetMujore.IdPacienti = request.IdPacienti;
-            dbTrajtimetMujore.DataFillimit = request.DataFillimit;
-            dbTrajtimetMujore.DataMbarimit = request.DataMbarimit;
-            dbTrajtimetMujore.Lloji = request.Lloji;
+            dbCovidLab.AnalizaId = request.AnalizaId;
+            dbCovidLab.IdUserLaboranti = request.IdUserLaboranti;
+            dbCovidLab.PacientiId = request.PacientiId;
+            dbCovidLab.LlojiTestit = request.LlojiTestit;
+            dbCovidLab.Mostra = request.Mostra;
+            dbCovidLab.DataAnalizes = request.DataAnalizes;
+            dbCovidLab.Rezultati = request.Rezultati;
 
 
             await _dataContext.SaveChangesAsync();
-
 
             string LoggedUserId = User.Claims.FirstOrDefault(c => c.Type == "id").Value;
             string LoggedUserEmri = User.Claims.FirstOrDefault(c => c.Type == "emri").Value;
@@ -85,8 +88,8 @@ namespace Hospital_Management_System.Controllers
             {
                 UseriLoggedId = LoggedUserId,
                 UseriLoggedName = LoggedUserEmri + " " + LoggedUserMbiemri,
-                ActivityOn = Convert.ToString(dbTrajtimetMujore.NrT),
-                Activity = "edited Trajtimi Mujor",
+                ActivityOn = Convert.ToString(dbCovidLab.AnalizaId),
+                Activity = "edited Covid Lab Test",
                 Ora = DateTime.Now
             };
 
@@ -95,15 +98,15 @@ namespace Hospital_Management_System.Controllers
 
             await ak.AddActivity(aktiviteti);
 
-            return Ok(await _dataContext.TrajtimetMujores.ToListAsync());
+            return Ok(await _dataContext.CovidLabs.ToListAsync());
         }
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<TrajtimetMujore>>> Delete(int id)
-        {
-            var dbTrajtimetMujore = await _dataContext.TrajtimetMujores.FindAsync(id);
-            if (dbTrajtimetMujore == null)
-                return BadRequest("Trajtimi not found!");
 
+        public async Task<ActionResult<List<CovidLab>>> Delete(int id)
+        {
+            var dbCovidLab = await _dataContext.CovidLabs.FindAsync(id);
+            if (dbCovidLab == null)
+                return BadRequest("Covid Laboratori not found!");
 
             string LoggedUserId = User.Claims.FirstOrDefault(c => c.Type == "id").Value;
             string LoggedUserEmri = User.Claims.FirstOrDefault(c => c.Type == "emri").Value;
@@ -114,21 +117,19 @@ namespace Hospital_Management_System.Controllers
             {
                 UseriLoggedId = LoggedUserId,
                 UseriLoggedName = LoggedUserEmri + " " + LoggedUserMbiemri,
-                ActivityOn = Convert.ToString(dbTrajtimetMujore.NrT),
-                Activity = "deleted Operacioni",
+                ActivityOn = Convert.ToString(dbCovidLab.AnalizaId),
+                Activity = "deleted Covid Lab Test",
                 Ora = DateTime.Now
             };
 
             ActivityLogUserController ak = new ActivityLogUserController(_dataContext);
 
-
-            _dataContext.TrajtimetMujores.Remove(dbTrajtimetMujore);
+            _dataContext.CovidLabs.Remove(dbCovidLab);
             await _dataContext.SaveChangesAsync();
-
 
             await ak.AddActivity(aktiviteti);
 
-            return Ok(await _dataContext.TrajtimetMujores.ToListAsync());
+            return Ok(await _dataContext.CovidLabs.ToListAsync());
         }
 
 

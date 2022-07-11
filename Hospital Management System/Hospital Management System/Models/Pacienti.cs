@@ -12,10 +12,10 @@ namespace Hospital_Management_System.Models
             Infuzionets = new HashSet<Infuzionet>();
             Kontrollas = new HashSet<Kontrolla>();
             Laboratoris = new HashSet<Laboratori>();
-            CovidLabs = new HashSet<CovidLab>();
             Operacionis = new HashSet<Operacioni>();
             Terminets = new HashSet<Terminet>();
             TrajtimetMujores = new HashSet<TrajtimetMujore>();
+            CovidLabs = new HashSet<CovidLab>();
         }
 
         public int IdPacienti { get; set; }
@@ -40,12 +40,13 @@ namespace Hospital_Management_System.Models
         [JsonIgnore]
         public virtual ICollection<Laboratori> Laboratoris { get; set; }
         [JsonIgnore]
-        public virtual ICollection<CovidLab> CovidLabs { get; set; }
-        [JsonIgnore]
         public virtual ICollection<Operacioni> Operacionis { get; set; }
         [JsonIgnore]
         public virtual ICollection<Terminet> Terminets { get; set; }
         [JsonIgnore]
         public virtual ICollection<TrajtimetMujore> TrajtimetMujores { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<CovidLab> CovidLabs { get; set; }
     }
 }

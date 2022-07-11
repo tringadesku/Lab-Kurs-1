@@ -36,6 +36,7 @@ export const Login = () => {
           localStorage.setItem("user_role", jwt(responseFromServer).role);
           localStorage.setItem("user_emri", jwt(responseFromServer).emri);
           localStorage.setItem("user_mbiemri", jwt(responseFromServer).mbiemri);
+          localStorage.setItem("user_id", jwt(responseFromServer).id);
           {window.location.href="/home"}
         } else{
           alert('Incorrect email or password!');;

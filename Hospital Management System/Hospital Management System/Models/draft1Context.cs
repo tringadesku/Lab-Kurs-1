@@ -16,7 +16,7 @@ namespace Hospital_Management_System.Models
         {
         }
 
-        public virtual DbSet<ActivityLogDhomaSalla> ActivityLogDhomaSallas { get; set; } = null!;
+        public virtual DbSet<ActiveStaff> ActiveStaffs { get; set; } = null!;
         public virtual DbSet<ActivityLogUser> ActivityLogUsers { get; set; } = null!;
         public virtual DbSet<Ambulanca> Ambulancas { get; set; } = null!;
         public virtual DbSet<CovidLab> CovidLabs { get; set; } = null!;
@@ -43,30 +43,27 @@ namespace Hospital_Management_System.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ActivityLogDhomaSalla>(entity =>
+            modelBuilder.Entity<ActiveStaff>(entity =>
             {
-                entity.ToTable("ActivityLogDhoma_Salla");
+                entity.ToTable("ActiveStaff");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Activity)
-                    .HasMaxLength(50)
+                entity.Property(e => e.CheckedInTime).HasColumnType("datetime");
+
+                entity.Property(e => e.UseriId)
+                    .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.IdUserAdmin).HasColumnName("ID_UserAdmin");
-
-                entity.Property(e => e.Ora).HasColumnType("smalldatetime");
-
-                entity.HasOne(d => d.IdUserAdminNavigation)
-                    .WithMany(p => p.ActivityLogDhomaSallas)
-                    .HasForeignKey(d => d.IdUserAdmin)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ActivityL__ID_Us__412EB0B6");
+                entity.Property(e => e.UseriName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
+
 
             modelBuilder.Entity<ActivityLogUser>(entity =>
             {
-                entity.ToTable("ActivityLogUSER");
+                entity.ToTable("ActivityLogUser");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -74,21 +71,25 @@ namespace Hospital_Management_System.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.IdUserAdmin).HasColumnName("ID_UserAdmin");
+                entity.Property(e => e.ActivityOn)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Ora).HasColumnType("smalldatetime");
 
-                entity.HasOne(d => d.IdUserAdminNavigation)
-                    .WithMany(p => p.ActivityLogUsers)
-                    .HasForeignKey(d => d.IdUserAdmin)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ActivityL__ID_Us__4222D4EF");
+                entity.Property(e => e.UseriLoggedId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UseriLoggedName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Ambulanca>(entity =>
             {
                 entity.HasKey(e => e.NrAuto)
-                    .HasName("PK__Ambulanc__294DA7F3A814050C");
+                    .HasName("PK__Ambulanc__294DA7F3EB9571F0");
 
                 entity.ToTable("Ambulanca");
 
@@ -110,7 +111,7 @@ namespace Hospital_Management_System.Models
                     .WithMany(p => p.Ambulancas)
                     .HasForeignKey(d => d.IdUserMjekuLider)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Ambulanca__ID_Us__4316F928");
+                    .HasConstraintName("FK__Ambulanca__ID_Us__6166761E");
             });
 
             modelBuilder.Entity<CovidLab>(entity =>
@@ -156,7 +157,7 @@ namespace Hospital_Management_System.Models
             modelBuilder.Entity<Dhoma>(entity =>
             {
                 entity.HasKey(e => e.RoomNr)
-                    .HasName("PK__Dhoma__19EF81814A830FC8");
+                    .HasName("PK__Dhoma__19EF81817542FA08");
 
                 entity.ToTable("Dhoma");
 
@@ -171,7 +172,7 @@ namespace Hospital_Management_System.Models
             modelBuilder.Entity<Fatura>(entity =>
             {
                 entity.HasKey(e => e.IdFatura)
-                    .HasName("PK__Fatura__9F2CBCBD4BF61FA9");
+                    .HasName("PK__Fatura__9F2CBCBD9D699575");
 
                 entity.ToTable("Fatura");
 
@@ -197,13 +198,13 @@ namespace Hospital_Management_System.Models
                     .WithMany(p => p.Faturas)
                     .HasForeignKey(d => d.IdPacienti)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Fatura__ID_Pacie__44FF419A");
+                    .HasConstraintName("FK__Fatura__ID_Pacie__4D5F7D71");
 
                 entity.HasOne(d => d.IdUserRecepsionistiNavigation)
                     .WithMany(p => p.Faturas)
                     .HasForeignKey(d => d.IdUserRecepsionisti)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Fatura__ID_UserR__440B1D61");
+                    .HasConstraintName("FK__Fatura__ID_UserR__4C6B5938");
             });
 
             modelBuilder.Entity<Infuzionet>(entity =>
@@ -230,19 +231,19 @@ namespace Hospital_Management_System.Models
                     .WithMany(p => p.Infuzionets)
                     .HasForeignKey(d => d.IdInfermieri)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Infuzione__Id_In__45F365D3");
+                    .HasConstraintName("FK__Infuzione__Id_In__690797E6");
 
                 entity.HasOne(d => d.IdPacientiNavigation)
                     .WithMany(p => p.Infuzionets)
                     .HasForeignKey(d => d.IdPacienti)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Infuzione__Id_Pa__46E78A0C");
+                    .HasConstraintName("FK__Infuzione__Id_Pa__69FBBC1F");
             });
 
             modelBuilder.Entity<Kontrolla>(entity =>
             {
                 entity.HasKey(e => e.IdKontrolla)
-                    .HasName("PK__Kontroll__0E758298A739FBAA");
+                    .HasName("PK__Kontroll__0E75829855652BCD");
 
                 entity.ToTable("Kontrolla");
 
@@ -271,19 +272,19 @@ namespace Hospital_Management_System.Models
                     .WithMany(p => p.Kontrollas)
                     .HasForeignKey(d => d.IdPacienti)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Kontrolla__ID_Pa__48CFD27E");
+                    .HasConstraintName("FK__Kontrolla__ID_Pa__5E8A0973");
 
                 entity.HasOne(d => d.IdUserMjekuNavigation)
                     .WithMany(p => p.Kontrollas)
                     .HasForeignKey(d => d.IdUserMjeku)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Kontrolla__ID_Us__47DBAE45");
+                    .HasConstraintName("FK__Kontrolla__ID_Us__5D95E53A");
             });
 
             modelBuilder.Entity<Laboratori>(entity =>
             {
                 entity.HasKey(e => e.NrAnalizes)
-                    .HasName("PK__Laborato__4EC6A61037456153");
+                    .HasName("PK__Laborato__4EC6A610047D3AA7");
 
                 entity.ToTable("Laboratori");
 
@@ -303,19 +304,19 @@ namespace Hospital_Management_System.Models
                     .WithMany(p => p.Laboratoris)
                     .HasForeignKey(d => d.IdPacienti)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Laborator__ID_Pa__4AB81AF0");
+                    .HasConstraintName("FK__Laborator__ID_Pa__498EEC8D");
 
                 entity.HasOne(d => d.IdUserLaborantiNavigation)
                     .WithMany(p => p.Laboratoris)
                     .HasForeignKey(d => d.IdUserLaboranti)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Laborator__ID_Us__49C3F6B7");
+                    .HasConstraintName("FK__Laborator__ID_Us__489AC854");
             });
 
             modelBuilder.Entity<Operacioni>(entity =>
             {
                 entity.HasKey(e => e.IdOperacioni)
-                    .HasName("PK__Operacio__34E81AD30E587404");
+                    .HasName("PK__Operacio__34E81AD39890DFAE");
 
                 entity.ToTable("Operacioni");
 
@@ -343,29 +344,29 @@ namespace Hospital_Management_System.Models
                     .WithMany(p => p.Operacionis)
                     .HasForeignKey(d => d.IdPacienti)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Operacion__ID_Pa__4CA06362");
+                    .HasConstraintName("FK__Operacion__ID_Pa__531856C7");
 
                 entity.HasOne(d => d.IdUserMjekuKryesorNavigation)
                     .WithMany(p => p.Operacionis)
                     .HasForeignKey(d => d.IdUserMjekuKryesor)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Operacion__ID_Us__4BAC3F29");
+                    .HasConstraintName("FK__Operacion__ID_Us__5224328E");
 
                 entity.HasOne(d => d.SallaNrNavigation)
                     .WithMany(p => p.Operacionis)
                     .HasForeignKey(d => d.SallaNr)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Operacion__Salla__4D94879B");
+                    .HasConstraintName("FK__Operacion__Salla__540C7B00");
             });
 
             modelBuilder.Entity<Pacienti>(entity =>
             {
                 entity.HasKey(e => e.IdPacienti)
-                    .HasName("PK__Pacienti__5F365065928B3DD4");
+                    .HasName("PK__Pacienti__5F3650658E42EE9E");
 
                 entity.ToTable("Pacienti");
 
-                entity.HasIndex(e => e.Nrtelefonit, "UQ__Pacienti__1E44B1BFA0F630EE")
+                entity.HasIndex(e => e.Nrtelefonit, "UQ__Pacienti__1E44B1BFE8D935B5")
                     .IsUnique();
 
                 entity.Property(e => e.IdPacienti)
@@ -417,7 +418,7 @@ namespace Hospital_Management_System.Models
             modelBuilder.Entity<Praktikanti>(entity =>
             {
                 entity.HasKey(e => e.IdPraktikanti)
-                    .HasName("PK__Praktika__36B5F1F9343E77E6");
+                    .HasName("PK__Praktika__36B5F1F926543CE0");
 
                 entity.ToTable("Praktikanti");
 
@@ -449,13 +450,13 @@ namespace Hospital_Management_System.Models
                     .WithMany(p => p.Praktikantis)
                     .HasForeignKey(d => d.MjekuMbikqyres)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Praktikan__Mjeku__4E88ABD4");
+                    .HasConstraintName("FK__Praktikan__Mjeku__65370702");
             });
 
             modelBuilder.Entity<Terminet>(entity =>
             {
                 entity.HasKey(e => e.IdTermini)
-                    .HasName("PK__Terminet__E6AD2361A4E58625");
+                    .HasName("PK__Terminet__E6AD23612ACDD937");
 
                 entity.ToTable("Terminet");
 
@@ -482,26 +483,22 @@ namespace Hospital_Management_System.Models
                     .WithMany(p => p.Terminets)
                     .HasForeignKey(d => d.IdMjeku)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Terminet__ID_Mje__4F7CD00D");
+                    .HasConstraintName("FK__Terminet__ID_Mje__59C55456");
 
                 entity.HasOne(d => d.IdPacientiNavigation)
                     .WithMany(p => p.Terminets)
                     .HasForeignKey(d => d.IdPacienti)
-                    .HasConstraintName("FK__Terminet__ID_Pac__5070F446");
+                    .HasConstraintName("FK__Terminet__ID_Pac__5AB9788F");
             });
 
             modelBuilder.Entity<TrajtimetMujore>(entity =>
             {
-                entity.HasKey(e => new { e.NrT })
-                    .HasName("PK__Trajtime__3E133E5CA6F4FB6B");
+                entity.HasKey(e => e.NrT)
+                    .HasName("PK__Trajtime__7BE05B5A24B60458");
 
                 entity.ToTable("Trajtimet_Mujore");
 
-                entity.Property(e => e.NrT)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("Nr_T");
-
-                entity.Property(e => e.IdPacienti).HasColumnName("ID_Pacienti");
+                entity.Property(e => e.NrT).HasColumnName("Nr_T");
 
                 entity.Property(e => e.DataFillimit)
                     .HasColumnType("date")
@@ -511,6 +508,8 @@ namespace Hospital_Management_System.Models
                     .HasColumnType("date")
                     .HasColumnName("Data_Mbarimit");
 
+                entity.Property(e => e.IdPacienti).HasColumnName("ID_Pacienti");
+
                 entity.Property(e => e.Lloji)
                     .HasMaxLength(30)
                     .IsUnicode(false);
@@ -519,20 +518,20 @@ namespace Hospital_Management_System.Models
                     .WithMany(p => p.TrajtimetMujores)
                     .HasForeignKey(d => d.IdPacienti)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Trajtimet__ID_Pa__5165187F");
+                    .HasConstraintName("FK__Trajtimet__ID_Pa__0B5CAFEA");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.IdUser)
-                    .HasName("PK__User__ED4DE442ABB33E2F");
+                    .HasName("PK__User__ED4DE442CF57B672");
 
                 entity.ToTable("User");
 
-                entity.HasIndex(e => e.Nrtelefonit, "UQ__User__1E44B1BF7D786B95")
+                entity.HasIndex(e => e.Nrtelefonit, "UQ__User__1E44B1BF102F6856")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Email, "UQ__User__A9D10534BA0C3E7A")
+                entity.HasIndex(e => e.Email, "UQ__User__A9D10534F0E6A616")
                     .IsUnique();
 
                 entity.Property(e => e.IdUser).HasColumnName("ID_User");

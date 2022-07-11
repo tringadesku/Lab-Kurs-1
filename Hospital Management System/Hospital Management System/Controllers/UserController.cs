@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authorization;
+using static Hospital_Management_System.Controllers.ActivityLogUserController;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -49,6 +50,7 @@ namespace Hospital_Management_System.Controllers
                 new Claim("email", user.Email),
                 new Claim("emri", user.Emri),
                 new Claim("mbiemri", user.Mbiemri),
+                new Claim("id", Convert.ToString(user.IdUser)),
                 new Claim("role", user.Pozita)
             };
 
@@ -103,8 +105,30 @@ namespace Hospital_Management_System.Controllers
             var hashedPassword = sha.ComputeHash(asByteArrray);
             u.Password = Convert.ToBase64String(hashedPassword);
 
+
+
+            //i marrim prej token
+            string LoggedUserId = User.Claims.FirstOrDefault(c => c.Type == "id").Value;
+            string LoggedUserEmri = User.Claims.FirstOrDefault(c => c.Type == "emri").Value;
+            string LoggedUserMbiemri = User.Claims.FirstOrDefault(c => c.Type == "mbiemri").Value;
+
+
+            ActivityLogUser aktiviteti = new ActivityLogUser
+            {
+                UseriLoggedId = LoggedUserId,
+                UseriLoggedName = LoggedUserEmri + " " + LoggedUserMbiemri,
+                ActivityOn = u.Emri + " " + u.Mbiemri,
+                Activity = "created User",
+                Ora = DateTime.Now
+            };
+
+            ActivityLogUserController ak = new ActivityLogUserController(_dataContext);
+
+
+            
             _dataContext.Users.Add(u);
             await _dataContext.SaveChangesAsync();
+            await ak.AddActivity(aktiviteti);
             return Ok(await _dataContext.Users.ToListAsync());
         }
 
@@ -127,6 +151,25 @@ namespace Hospital_Management_System.Controllers
 
             await _dataContext.SaveChangesAsync();
 
+            string LoggedUserId = User.Claims.FirstOrDefault(c => c.Type == "id").Value;
+            string LoggedUserEmri = User.Claims.FirstOrDefault(c => c.Type == "emri").Value;
+            string LoggedUserMbiemri = User.Claims.FirstOrDefault(c => c.Type == "mbiemri").Value;
+
+
+            ActivityLogUser aktiviteti = new ActivityLogUser
+            {
+                UseriLoggedId = LoggedUserId,
+                UseriLoggedName = LoggedUserEmri + " " + LoggedUserMbiemri,
+                ActivityOn = Convert.ToString(dbUser.IdUser),
+                Activity = "edited User",
+                Ora = DateTime.Now
+            };
+
+            ActivityLogUserController ak = new ActivityLogUserController(_dataContext);
+
+
+            await ak.AddActivity(aktiviteti);
+
             return Ok(await _dataContext.Users.ToListAsync());
         }
 
@@ -138,8 +181,27 @@ namespace Hospital_Management_System.Controllers
             if (dbUser == null)
                 return BadRequest("User not found!");
 
+            string LoggedUserId = User.Claims.FirstOrDefault(c => c.Type == "id").Value;
+            string LoggedUserEmri = User.Claims.FirstOrDefault(c => c.Type == "emri").Value;
+            string LoggedUserMbiemri = User.Claims.FirstOrDefault(c => c.Type == "mbiemri").Value;
+
+
+            ActivityLogUser aktiviteti = new ActivityLogUser
+            {
+                UseriLoggedId = LoggedUserId,
+                UseriLoggedName = LoggedUserEmri + " " + LoggedUserMbiemri,
+                Activity = "deleted User",
+                ActivityOn = Convert.ToString(dbUser.IdUser),
+                Ora = DateTime.Now
+            };
+
+            ActivityLogUserController ak = new ActivityLogUserController(_dataContext);
+
+
+            
             _dataContext.Users.Remove(dbUser);
             await _dataContext.SaveChangesAsync();
+            await ak.AddActivity(aktiviteti);
 
             return Ok(await _dataContext.Users.ToListAsync());
         }

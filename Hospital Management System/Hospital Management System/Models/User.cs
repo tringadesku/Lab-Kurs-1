@@ -8,17 +8,15 @@ namespace Hospital_Management_System.Models
     {
         public User()
         {
-            ActivityLogDhomaSallas = new HashSet<ActivityLogDhomaSalla>();
-            ActivityLogUsers = new HashSet<ActivityLogUser>();
             Ambulancas = new HashSet<Ambulanca>();
             Faturas = new HashSet<Fatura>();
             Infuzionets = new HashSet<Infuzionet>();
             Kontrollas = new HashSet<Kontrolla>();
             Laboratoris = new HashSet<Laboratori>();
-            CovidLabs = new HashSet<CovidLab>();
             Operacionis = new HashSet<Operacioni>();
             Praktikantis = new HashSet<Praktikanti>();
             Terminets = new HashSet<Terminet>();
+            CovidLabs = new HashSet<CovidLab>();
         }
 
         public int IdUser { get; set; }
@@ -30,10 +28,6 @@ namespace Hospital_Management_System.Models
         public string Nrtelefonit { get; set; } = null!;
 
         [JsonIgnore]
-        public virtual ICollection<ActivityLogDhomaSalla> ActivityLogDhomaSallas { get; set; }
-        [JsonIgnore]
-        public virtual ICollection<ActivityLogUser> ActivityLogUsers { get; set; }
-        [JsonIgnore]
         public virtual ICollection<Ambulanca> Ambulancas { get; set; }
         [JsonIgnore]
         public virtual ICollection<Fatura> Faturas { get; set; }
@@ -43,14 +37,14 @@ namespace Hospital_Management_System.Models
         public virtual ICollection<Kontrolla> Kontrollas { get; set; }
         [JsonIgnore]
         public virtual ICollection<Laboratori> Laboratoris { get; set; }
-
-        [JsonIgnore]
-        public virtual ICollection<CovidLab> CovidLabs { get; set; }
         [JsonIgnore]
         public virtual ICollection<Operacioni> Operacionis { get; set; }
         [JsonIgnore]
         public virtual ICollection<Praktikanti> Praktikantis { get; set; }
         [JsonIgnore]
         public virtual ICollection<Terminet> Terminets { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<CovidLab> CovidLabs { get; set; }
     }
 }

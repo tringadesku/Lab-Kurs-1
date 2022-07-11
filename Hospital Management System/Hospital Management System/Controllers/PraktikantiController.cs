@@ -35,26 +35,67 @@ namespace Hospital_Management_System.Controllers
         {
             _dataContext.Praktikantis.Add(i);
             await _dataContext.SaveChangesAsync();
+
+
+            string LoggedUserId = User.Claims.FirstOrDefault(c => c.Type == "id").Value;
+            string LoggedUserEmri = User.Claims.FirstOrDefault(c => c.Type == "emri").Value;
+            string LoggedUserMbiemri = User.Claims.FirstOrDefault(c => c.Type == "mbiemri").Value;
+
+
+            ActivityLogUser aktiviteti = new ActivityLogUser
+            {
+                UseriLoggedId = LoggedUserId,
+                UseriLoggedName = LoggedUserEmri + " " + LoggedUserMbiemri,
+                ActivityOn = Convert.ToString(i.IdPraktikanti),
+                Activity = "created Praktikanti",
+                Ora = DateTime.Now
+            };
+
+            ActivityLogUserController ak = new ActivityLogUserController(_dataContext);
+
+
+            await ak.AddActivity(aktiviteti);
+
             return Ok(await _dataContext.Praktikantis.ToListAsync());
         }
 
         [HttpPut]
         public async Task<ActionResult<List<Praktikanti>>> UpdatePraktikanti(Praktikanti request)
         {
-            var dbAmbulanca = await _dataContext.Praktikantis.FindAsync(request.IdPraktikanti);
-            if (dbAmbulanca == null)
+            var dbPraktikanti = await _dataContext.Praktikantis.FindAsync(request.IdPraktikanti);
+            if (dbPraktikanti == null)
                 return BadRequest("Praktikanti not found!");
 
-            dbAmbulanca.IdPraktikanti = request.IdPraktikanti;
-            dbAmbulanca.EmriPr = request.EmriPr;
-            dbAmbulanca.MbiemriPr = request.MbiemriPr;
-            dbAmbulanca.MjekuMbikqyres = request.MjekuMbikqyres;
-            dbAmbulanca.DataFillimit = request.DataFillimit;
-            dbAmbulanca.DataPerfundimit = request.DataPerfundimit;
-            dbAmbulanca.Oret = request.Oret;
-            dbAmbulanca.Aprovimi = request.Aprovimi;
+            dbPraktikanti.IdPraktikanti = request.IdPraktikanti;
+            dbPraktikanti.EmriPr = request.EmriPr;
+            dbPraktikanti.MbiemriPr = request.MbiemriPr;
+            dbPraktikanti.MjekuMbikqyres = request.MjekuMbikqyres;
+            dbPraktikanti.DataFillimit = request.DataFillimit;
+            dbPraktikanti.DataPerfundimit = request.DataPerfundimit;
+            dbPraktikanti.Oret = request.Oret;
+            dbPraktikanti.Aprovimi = request.Aprovimi;
 
             await _dataContext.SaveChangesAsync();
+
+
+            string LoggedUserId = User.Claims.FirstOrDefault(c => c.Type == "id").Value;
+            string LoggedUserEmri = User.Claims.FirstOrDefault(c => c.Type == "emri").Value;
+            string LoggedUserMbiemri = User.Claims.FirstOrDefault(c => c.Type == "mbiemri").Value;
+
+
+            ActivityLogUser aktiviteti = new ActivityLogUser
+            {
+                UseriLoggedId = LoggedUserId,
+                UseriLoggedName = LoggedUserEmri + " " + LoggedUserMbiemri,
+                ActivityOn = Convert.ToString(dbPraktikanti.IdPraktikanti),
+                Activity = "edited Praktikanti",
+                Ora = DateTime.Now
+            };
+
+            ActivityLogUserController ak = new ActivityLogUserController(_dataContext);
+
+
+            await ak.AddActivity(aktiviteti);
 
             return Ok(await _dataContext.Praktikantis.ToListAsync());
         }
@@ -65,8 +106,27 @@ namespace Hospital_Management_System.Controllers
             if (dbPraktikanti == null)
                 return BadRequest("Praktikanti not found!");
 
+            string LoggedUserId = User.Claims.FirstOrDefault(c => c.Type == "id").Value;
+            string LoggedUserEmri = User.Claims.FirstOrDefault(c => c.Type == "emri").Value;
+            string LoggedUserMbiemri = User.Claims.FirstOrDefault(c => c.Type == "mbiemri").Value;
+
+
+            ActivityLogUser aktiviteti = new ActivityLogUser
+            {
+                UseriLoggedId = LoggedUserId,
+                UseriLoggedName = LoggedUserEmri + " " + LoggedUserMbiemri,
+                ActivityOn = Convert.ToString(dbPraktikanti.IdPraktikanti),
+                Activity = "deleted Praktikanti",
+                Ora = DateTime.Now
+            };
+
             _dataContext.Praktikantis.Remove(dbPraktikanti);
             await _dataContext.SaveChangesAsync();
+
+            ActivityLogUserController ak = new ActivityLogUserController(_dataContext);
+
+
+            await ak.AddActivity(aktiviteti);
 
             return Ok(await _dataContext.Praktikantis.ToListAsync());
         }
