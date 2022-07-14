@@ -32,10 +32,12 @@ export const Kontrollat = () => {
     .then(response => response.json())
     .then(responseFromServer => {
       console.log(responseFromServer);
-      onDeleteKontrolla(idKontrolla); 
+      alert("Kontrolla u fshi me sukses!");
+      getKontrollat();
     })
     .catch(error => {
       console.log(error);
+      alert("Kjo kontrolle nuk mund te fshihet!");
     });
 
   }
@@ -47,7 +49,7 @@ export const Kontrollat = () => {
       <h3>Kontrollat</h3>
     <table className='table table-striped'>
       <thead>
-        <tr className="table-success">
+        <tr className="table"  style={{backgroundColor: "#A2BFC8"}}>
         <th scope='col'>Id Kontrolla (PK)</th>
           <th scope='col'>Id UserMjeku</th> 
           <th scope='col'>Id Pacienti</th>
@@ -55,7 +57,7 @@ export const Kontrollat = () => {
           <th scope='col'>Pershkrimi</th>
           <th scope='col'>Receta</th>
           <th> </th>
-          <th><Link to="/addKontrolla" onClick={() => {window.location.href="/addKontrolla"}} className="btn btn-primary">Shto Kontrolle</Link> </th>
+          <th><Link to="/addKontrolla" onClick={() => {window.location.href="/addKontrolla"}} className="btn btn-secondary custom-btn">Shto Kontrolle</Link> </th>
         </tr>
       </thead>
       <tbody>
@@ -67,8 +69,8 @@ export const Kontrollat = () => {
           <td>{dbKontrollat.diagnoza}</td>
           <td>{dbKontrollat.pershkrimi}</td>
           <td>{dbKontrollat.receta}</td>
-          <td><Link to={`/editKontrolla/${dbKontrollat.idKontrolla}`} className="btn btn-outline-success" onClick={() => {window.location.href=`/editKontrolla/${dbKontrollat.idKontrolla}`}}>Edit</Link></td>
-          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Kontrollen "${dbKontrollat.idKontrolla}"? `)) deleteKontrolla(dbKontrollat.idKontrolla)}} className="btn btn-danger">Delete</button></td>
+          <td><Link to={`/editKontrolla/${dbKontrollat.idKontrolla}`} className="btn btn-outline-secondary" onClick={() => {window.location.href=`/editKontrolla/${dbKontrollat.idKontrolla}`}}>Edit</Link></td>
+          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Kontrollen "${dbKontrollat.idKontrolla}"? `)) deleteKontrolla(dbKontrollat.idKontrolla)}} className="btn btn-secondary">Delete</button></td>
         </tr>   
           ))}
       </tbody>
@@ -78,22 +80,5 @@ export const Kontrollat = () => {
   </div>
   )
 
-  function onDeleteKontrolla(deletedIdKontrolla){
-    let kontrollatCopy = [...dbKontrollat];
-  
-    const index = kontrollatCopy.findIndex((kontrollatCopyKontrolla, currentIndex) => {
-      if(kontrollatCopyKontrolla.idKontrolla === deletedIdKontrolla){
-        return true;
-      }
-    });
-  
-    if(index !== -1){
-      kontrollatCopy.splice(index, 1);
-    }
-  
-    setdbKontrollat(kontrollatCopy);
-  
-    alert("Kontrolla u fshi me sukses!");
-  }
 
 }

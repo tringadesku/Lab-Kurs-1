@@ -32,10 +32,11 @@ export const TrajtimetMujore = () => {
     .then(response => response.json())
     .then(responseFromServer => {
       console.log(responseFromServer);
-      onDeleteTrajtimetMujore(nrT); 
+      alert("Trajtimi Mujor u anulua me sukses!");
     })
     .catch(error => {
       console.log(error);
+      alert("Ky Trajtim Mujor nuk mund te anulohet!");
     });
 
   }
@@ -48,14 +49,14 @@ export const TrajtimetMujore = () => {
       <h3>Trajtimet Mujore</h3>
     <table className='table table-striped'>
       <thead>
-        <tr className="table-success">
+        <tr className="table" style={{backgroundColor: "#A2BFC8"}}>
         <th scope='col'> Trajtimi ID (PK)</th>
           <th scope='col'>Id Pacienti</th>
           <th scope='col'>Data Fillimit</th>
           <th scope='col'>Data Mbarimit</th>
           <th scope='col'>Lloji</th>
           <th> </th>
-          <th><Link to="/addTrajtimi" onClick={() => {window.location.href="/addTrajtimi"}} className="btn btn-primary">Shto Trajtimin Mujor</Link> </th>
+          <th><Link to="/addTrajtimi" onClick={() => {window.location.href="/addTrajtimi"}} className="btn btn-secondary custom-btn">Shto Trajtimin Mujor</Link> </th>
         </tr>
       </thead>
       <tbody>
@@ -66,8 +67,8 @@ export const TrajtimetMujore = () => {
           <td>{moment.utc(dbTrajtimetMujore.dataFillimit).format('MM/DD/YY')}</td>
           <td>{moment.utc(dbTrajtimetMujore.dataMbarimit).format('MM/DD/YY')}</td>
           <td>{dbTrajtimetMujore.lloji}</td>
-          <td><Link to={`/editTrajtimi/${dbTrajtimetMujore.nrT}`} className="btn btn-outline-success" onClick={() => {window.location.href=`/editTrajtimi/${dbTrajtimetMujore.nrT}`}}>Edit</Link></td>
-          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Trajtimin Mujor "${dbTrajtimetMujore.nrT}"? `)) deleteTrajtimetMujore(dbTrajtimetMujore.nrT)}} className="btn btn-danger">Delete</button></td>
+          <td><Link to={`/editTrajtimi/${dbTrajtimetMujore.nrT}`} className="btn btn-outline-secondary" onClick={() => {window.location.href=`/editTrajtimi/${dbTrajtimetMujore.nrT}`}}>Edit</Link></td>
+          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Trajtimin Mujor "${dbTrajtimetMujore.nrT}"? `)) deleteTrajtimetMujore(dbTrajtimetMujore.nrT)}} className="btn btn-secondary">Delete</button></td>
         </tr>   
           ))}
       </tbody>
@@ -77,22 +78,5 @@ export const TrajtimetMujore = () => {
   </div>
   )
 
-  function onDeleteTrajtimetMujore(deletedNrT){
-    let TrajtimetCopy = [...dbTrajtimetMujore];
-  
-    const index = TrajtimetCopy.findIndex((trajtimetCopyTrajtimet, currentIndex) => {
-      if(trajtimetCopyTrajtimet.nrT === deletedNrT){
-        return true;
-      }
-    });
-  
-    if(index !== -1){
-     TrajtimetCopy.splice(index, 1);
-    }
-  
-    setdbTrajtimetMujore(TrajtimetCopy);
-  
-    alert("Trajtimi Mujor u fshi me sukses!");
-  }
 
 }

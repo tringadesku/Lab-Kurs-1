@@ -30,7 +30,7 @@ export const ActivityLog = () => {
       <h3>Activity Log</h3>
     <table className='table table-striped'>
       <thead>
-        <tr className="table-success">
+        <tr className="table" style={{backgroundColor: "#A2BFC8"}}>
           <th scope='col'>ID</th>
           <th scope='col'>Activity</th>
         </tr>

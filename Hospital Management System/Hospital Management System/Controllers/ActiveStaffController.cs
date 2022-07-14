@@ -8,6 +8,7 @@ namespace Hospital_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ActiveStaffController : ControllerBase
     {
         private readonly draft1Context _dataContext;

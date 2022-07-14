@@ -32,10 +32,12 @@ export const Praktikantet = () => {
     .then(response => response.json())
     .then(responseFromServer => {
       console.log(responseFromServer);
-      onDeletePraktikanti(idPraktikanti); 
+      alert("Praktikanti u fshi me sukses!");
+      getPraktikantet();
     })
     .catch(error => {
       console.log(error);
+      alert("Ky praktikant nuk mund te fshihet ose mund te jete ne perdorim!");
     });
 
   }
@@ -47,7 +49,7 @@ export const Praktikantet = () => {
       <h3>Praktikantet</h3>
     <table className='table table-striped'>
       <thead>
-        <tr className="table-success">
+        <tr className="table"  style={{backgroundColor: "#A2BFC8"}}>
         <th scope='col'>Id Praktikanti (PK)</th>
           <th scope='col'>Emri i Praktikantit</th> 
           <th scope='col'>Mbiemri i Praktikantit</th>
@@ -57,7 +59,7 @@ export const Praktikantet = () => {
           <th scope='col'>Oret</th>
           <th scope='col'>Aprovimi</th>
           <th> </th>
-          <th><Link to="/addPraktikanti" onClick={() => {window.location.href="/addPraktikanti"}} className="btn btn-primary">Shto Praktikantin</Link> </th>
+          <th><Link to="/addPraktikanti" onClick={() => {window.location.href="/addPraktikanti"}} className="btn btn-secondary custom-btn">Shto Praktikantin</Link> </th>
         </tr>
       </thead>
       <tbody>
@@ -71,8 +73,8 @@ export const Praktikantet = () => {
           <td>{moment.utc(dbPraktikantet.dataPerfundimit).format('MM/DD/YY')}</td>
           <td>{dbPraktikantet.oret}</td>
           <td>{dbPraktikantet.aprovimi}</td>
-          <td><Link to={`/editPraktikanti/${dbPraktikantet.idPraktikanti}`} className="btn btn-outline-success" onClick={() => {window.location.href=`/editPraktikanti/${dbPraktikantet.idPraktikanti}`}}>Edit</Link></td>
-          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Praktikantin "${dbPraktikantet.idPraktikanti}"? `)) deletePraktikanti(dbPraktikantet.idPraktikanti)}} className="btn btn-danger">Delete</button></td>
+          <td><Link to={`/editPraktikanti/${dbPraktikantet.idPraktikanti}`} className="btn btn-outline-secondary" onClick={() => {window.location.href=`/editPraktikanti/${dbPraktikantet.idPraktikanti}`}}>Edit</Link></td>
+          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Praktikantin "${dbPraktikantet.idPraktikanti}"? `)) deletePraktikanti(dbPraktikantet.idPraktikanti)}} className="btn btn-secondary">Delete</button></td>
         </tr>   
           ))}
       </tbody>
@@ -82,22 +84,5 @@ export const Praktikantet = () => {
   </div>
   )
 
-  function onDeletePraktikanti(deletedIdPraktikanti){
-    let PraktikantetCopy = [...dbPraktikantet];
-  
-    const index = PraktikantetCopy.findIndex((praktikantetCopyPraktikanti, currentIndex) => {
-      if(praktikantetCopyPraktikanti.idPraktikanti === deletedIdPraktikanti){
-        return true;
-      }
-    });
-  
-    if(index !== -1){
-     PraktikantetCopy.splice(index, 1);
-    }
-  
-    setdbPraktikantet(PraktikantetCopy);
-  
-    alert("Praktikanti u fshi me sukses!");
-  }
 
 }

@@ -32,10 +32,12 @@ export const Infuzionet = () => {
     .then(response => response.json())
     .then(responseFromServer => {
       console.log(responseFromServer);
-      onDeleteInfuzioni(id);
+      alert("Infuzioni u fshi me sukses!");
+      getInfuzionet();
     })
     .catch(error => {
       console.log(error);
+      alert("Ky infuzion nuk mund te fshihet!");
     });
 
   }
@@ -47,7 +49,7 @@ export const Infuzionet = () => {
       <h3>Infuzionet</h3>
       <table className='table table-striped'>
         <thead>
-          <tr className="table-success">
+          <tr className="table"  style={{backgroundColor: "#A2BFC8"}}>
             <th scope='col'>ID</th>
             <th scope='col'>ID Infermierit</th>
             <th scope='col'>ID Pacientit</th>
@@ -55,7 +57,7 @@ export const Infuzionet = () => {
             <th scope='col'>Data</th>
             <th scope='col'>Ora</th>
             <th> </th>
-            <th><Link to="/addInfuzioni" onClick={() => { window.location.href = "/addInfuzioni"; } } className="btn btn-primary">Ruaj Infuzion</Link> </th>
+            <th><Link to="/addInfuzioni" onClick={() => { window.location.href = "/addInfuzioni"; } } className="btn btn-secondary custom-btn">Ruaj Infuzion</Link> </th>
           </tr>
         </thead>
         <tbody>
@@ -67,11 +69,11 @@ export const Infuzionet = () => {
               <td>{dbInfuzionet.lloji}</td>
               <td>{moment.utc(dbInfuzionet.data).format('MM/DD/YY')}</td>
               <td>{dbInfuzionet.ora}</td>
-              <td><Link to={`/editInfuzioni/${dbInfuzionet.id}`} className="btn btn-outline-success" onClick={() => { window.location.href = `/editInfuzioni/${dbInfuzionet.id}`; } }>Edit</Link></td>
+              <td><Link to={`/editInfuzioni/${dbInfuzionet.id}`} className="btn btn-outline-secondary" onClick={() => { window.location.href = `/editInfuzioni/${dbInfuzionet.id}`; } }>Edit</Link></td>
               <td><button type="button" onClick={() => {
                 if (window.confirm(`A jeni i sigurt qe doni te fshini Infuzionin "${dbInfuzionet.id}"? `))
                   deleteInfuzioni(dbInfuzionet.id);
-              } } className="btn btn-danger">Delete</button></td>
+              } } className="btn btn-secondary">Delete</button></td>
             </tr>
           ))}
         </tbody>
@@ -81,22 +83,5 @@ export const Infuzionet = () => {
     </div>
   )
 
-  function onDeleteInfuzioni(deletedId){
-    let infuzionetCopy = [...dbInfuzionet];
-  
-    const index = infuzionetCopy.findIndex((infuzionetCopyInfuzioni, currentIndex) => {
-      if(infuzionetCopyInfuzioni.id === deletedId){
-        return true;
-      }
-    });
-  
-    if(index !== -1){
-      infuzionetCopy.splice(index, 1);
-    }
-  
-    setdbInfuzionet(infuzionetCopy);
-  
-    alert("Infuzioni u fshi me sukses!");
-  }
 
 }

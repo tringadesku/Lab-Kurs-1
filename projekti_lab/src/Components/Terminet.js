@@ -33,10 +33,12 @@ export const Terminet = () => {
     .then(response => response.json())
     .then(responseFromServer => {
       console.log(responseFromServer);
-      onDeleteTermini(idTermini); 
+      alert("Termini u anulua me sukses!");
+      getTerminet();
     })
     .catch(error => {
       console.log(error);
+      alert("Ky termin nuk mund te anulohet!");
     });
 
   }
@@ -48,7 +50,7 @@ export const Terminet = () => {
       <h3>Terminet</h3>
     <table className='table table-striped'>
       <thead>
-        <tr className="table-success">
+        <tr className="table"  style={{backgroundColor: "#A2BFC8"}}>
         <th scope='col'>Id Termini (PK)</th>
           <th scope='col'>Id Mjeku</th> 
           <th scope='col'>Id Pacienti</th>
@@ -56,7 +58,7 @@ export const Terminet = () => {
           <th scope='col'>Ora</th>
           <th scope='col'>Lloji</th>
           <th> </th>
-          <th><Link to="/addTermini" onClick={() => {window.location.href="/addTermini"}} className="btn btn-primary">Shto Termin</Link> </th>
+          <th><Link to="/addTermini" onClick={() => {window.location.href="/addTermini"}} className="btn btn-secondary custom-btn">Shto Termin</Link> </th>
         </tr>
       </thead>
       <tbody>
@@ -68,8 +70,8 @@ export const Terminet = () => {
           <td>{moment.utc(dbTerminet.data).format('MM/DD/YY')}</td>
           <td>{dbTerminet.ora}</td>
           <td>{dbTerminet.lloji}</td>
-          <td><Link to={`/editTermini/${dbTerminet.idTermini}`} className="btn btn-outline-success" onClick={() => {window.location.href=`/editTermini/${dbTerminet.idTermini}`}}>Edit</Link></td>
-          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Terminin "${dbTerminet.idTermini}"? `)) deleteTerminet(dbTerminet.idTermini)}} className="btn btn-danger">Delete</button></td>
+          <td><Link to={`/editTermini/${dbTerminet.idTermini}`} className="btn btn-outline-secondary" onClick={() => {window.location.href=`/editTermini/${dbTerminet.idTermini}`}}>Edit</Link></td>
+          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Terminin "${dbTerminet.idTermini}"? `)) deleteTerminet(dbTerminet.idTermini)}} className="btn btn-secondary">Delete</button></td>
         </tr>   
           ))}
       </tbody>
@@ -78,23 +80,5 @@ export const Terminet = () => {
     
   </div>
   )
-
-  function onDeleteTermini(deletedIdTermini){
-    let TerminetCopy = [...dbTerminet];
-  
-    const index = TerminetCopy.findIndex((terminetCopyTermini, currentIndex) => {
-      if(terminetCopyTermini.idTermini === deletedIdTermini){
-        return true;
-      }
-    });
-  
-    if(index !== -1){
-      TerminetCopy.splice(index, 1);
-    }
-  
-    setdbTerminet(TerminetCopy);
-  
-    alert("Termini u fshi me sukses!");
-  }
 
 }

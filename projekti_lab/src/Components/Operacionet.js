@@ -32,10 +32,11 @@ export const Operacionet = () => {
     .then(response => response.json())
     .then(responseFromServer => {
       console.log(responseFromServer);
-      onDeleteOperacioni(idOperacioni); 
+      alert("Operacioni u fshi me sukses!");
     })
     .catch(error => {
       console.log(error);
+      alert("Ky operacion nuk mund te fshihet!");
     });
 
   }
@@ -47,7 +48,7 @@ export const Operacionet = () => {
       <h3>Operacionet</h3>
     <table className='table table-striped'>
       <thead>
-        <tr className="table-success">
+        <tr className="table"  style={{backgroundColor: "#A2BFC8"}}>
         <th scope='col'>Id Operacioni (PK)</th>
           <th scope='col'>ID Mjeku Kryesor</th> 
           <th scope='col'>Id Pacienti</th>
@@ -55,7 +56,7 @@ export const Operacionet = () => {
           <th scope='col'>Data</th>
           <th scope='col'>Ora</th>
           <th> </th>
-          <th><Link to="/addOperacioni" onClick={() => {window.location.href="/addOperacioni"}} className="btn btn-primary">Shto Operacion</Link> </th>
+          <th><Link to="/addOperacioni" onClick={() => {window.location.href="/addOperacioni"}} className="btn btn-secondary custom-btn">Shto Operacion</Link> </th>
         </tr>
       </thead>
       <tbody>
@@ -67,8 +68,8 @@ export const Operacionet = () => {
           <td>{dbOperacionet.sallaNr}</td>
           <td>{moment.utc(dbOperacionet.data).format('MM/DD/YY')}</td>
           <td>{dbOperacionet.ora}</td>
-          <td><Link to={`/editOperacioni/${dbOperacionet.idOperacioni}`} className="btn btn-outline-success" onClick={() => {window.location.href=`/editOperacioni/${dbOperacionet.idOperacioni}`}}>Edit</Link></td>
-          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Operacionin "${dbOperacionet.idOperacioni}"? `)) deleteOperacioni(dbOperacionet.idOperacioni)}} className="btn btn-danger">Delete</button></td>
+          <td><Link to={`/editOperacioni/${dbOperacionet.idOperacioni}`} className="btn btn-outline-secondary" onClick={() => {window.location.href=`/editOperacioni/${dbOperacionet.idOperacioni}`}}>Edit</Link></td>
+          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Operacionin "${dbOperacionet.idOperacioni}"? `)) deleteOperacioni(dbOperacionet.idOperacioni)}} className="btn btn-secondary">Delete</button></td>
         </tr>   
           ))}
       </tbody>

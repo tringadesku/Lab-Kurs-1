@@ -32,10 +32,12 @@ export const Faturat = () => {
     .then(response => response.json())
     .then(responseFromServer => {
       console.log(responseFromServer);
-      onDeleteFatura(idFatura); 
+      alert("Fatura u fshi me sukses!");
+      getFaturat();
     })
     .catch(error => {
       console.log(error);
+      alert("Kjo fature nuk mund te fshihet!");
     });
 
   }
@@ -47,7 +49,7 @@ export const Faturat = () => {
       <h3>Faturat</h3>
     <table className='table table-striped'>
       <thead>
-        <tr className="table-success">
+        <tr className="table"  style={{backgroundColor: "#A2BFC8"}}>
         <th scope='col'>Id Fatura (PK)</th>
           <th scope='col'>Id Recepsionisti</th> 
           <th scope='col'>Id Pacienti</th>
@@ -56,7 +58,7 @@ export const Faturat = () => {
           <th scope='col'>Pagesa Totale</th>
           <th scope='col'>Statusi</th>
           <th> </th>
-          <th><Link to="/addFatura" onClick={() => {window.location.href="/addFatura"}} className="btn btn-primary">Shto Faturen</Link> </th>
+          <th><Link to="/addFatura" onClick={() => {window.location.href="/addFatura"}} className="btn btn-secondary custom-btn">Shto Faturen</Link> </th>
         </tr>
       </thead>
       <tbody>
@@ -69,8 +71,8 @@ export const Faturat = () => {
           <td>{moment.utc(dbFaturat.data).format('MM/DD/YY')}</td>
           <td>{dbFaturat.pagesaTotale+" €"}</td>
           <td>{dbFaturat.statusi}</td>
-          <td><Link to={`/editFatura/${dbFaturat.idFatura}`} className="btn btn-outline-success" onClick={() => {window.location.href=`/editFatura/${dbFaturat.idFatura}`}}>Edit</Link></td>
-          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Faturen "${dbFaturat.idFatura}"? `)) deleteFatura(dbFaturat.idFatura)}} className="btn btn-danger">Delete</button></td>
+          <td><Link to={`/editFatura/${dbFaturat.idFatura}`} className="btn btn-outline-secondary" onClick={() => {window.location.href=`/editFatura/${dbFaturat.idFatura}`}}>Edit</Link></td>
+          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Faturen "${dbFaturat.idFatura}"? `)) deleteFatura(dbFaturat.idFatura)}} className="btn btn-secondary">Delete</button></td>
         </tr>   
           ))}
       </tbody>
@@ -80,22 +82,5 @@ export const Faturat = () => {
   </div>
   )
 
-  function onDeleteFatura(deletedIdFatura){
-    let FaturatCopy = [...dbFaturat];
-  
-    const index = FaturatCopy.findIndex((faturatCopyFatura, currentIndex) => {
-      if(faturatCopyFatura.idFatura === deletedIdFatura){
-        return true;
-      }
-    });
-  
-    if(index !== -1){
-     FaturatCopy.splice(index, 1);
-    }
-  
-    setdbFaturat(FaturatCopy);
-  
-    alert("Fatura u fshi me sukses!");
-  }
 
 }

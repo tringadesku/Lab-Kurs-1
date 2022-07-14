@@ -6,7 +6,7 @@ namespace Hospital_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Recepsionist")]
+    [Authorize(Roles = "Recepsionist,Mjek")]
     public class TrajtimetMujoreController : ControllerBase
     {
         private readonly draft1Context _dataContext;

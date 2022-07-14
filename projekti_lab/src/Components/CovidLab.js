@@ -32,10 +32,12 @@ export const CovidLab = () => {
     .then(response => response.json())
     .then(responseFromServer => {
       console.log(responseFromServer);
-      onDeleteCovidLab(analizaId); 
+      alert("Covid-Analiza u fshi me sukses!");
+      getCovidLab();
     })
     .catch(error => {
       console.log(error);
+      alert("Kjo analize nuk mund te fshihet!");
     });
 
   }
@@ -47,7 +49,7 @@ export const CovidLab = () => {
       <h3>Covid Laboratori</h3>
     <table className='table table-striped'>
       <thead>
-        <tr className="table-success">
+        <tr className="table"  style={{backgroundColor: "#A2BFC8"}}>
         <th scope='col'>Analiza ID (PK)</th>
           <th scope='col'>Id User Laboranti</th> 
           <th scope='col'>Id Pacienti</th>
@@ -56,7 +58,7 @@ export const CovidLab = () => {
           <th scope='col'>Data</th>
           <th scope='col'>Rezultati</th>
           <th></th>
-          <th><Link to="/addCovidLab" onClick={() => {window.location.href="/addCovidLab"}} className="btn btn-primary">Shto Covid-Analize</Link> </th>
+          <th><Link to="/addCovidLab" onClick={() => {window.location.href="/addCovidLab"}} className="btn btn-secondary custom-btn">Shto Covid-Analize</Link> </th>
         </tr>
       </thead>
       <tbody>
@@ -69,8 +71,8 @@ export const CovidLab = () => {
           <td>{dbCovidLab.mostra}</td>
           <td>{moment.utc(dbCovidLab.dataAnalizes).format('MM/DD/YY')}</td>
           <td>{dbCovidLab.rezultati}</td>
-          <td><Link to={`/editCovidLab/${dbCovidLab.analizaId}`} className="btn btn-outline-success" onClick={() => {window.location.href=`/editCovidLab/${dbCovidLab.analizaId}`}}>Edit</Link></td>
-          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Analizen-Covid "${dbCovidLab.analizaId}"? `)) deleteCovidLab(dbCovidLab.analizaId)}} className="btn btn-danger">Delete</button></td>
+          <td><Link to={`/editCovidLab/${dbCovidLab.analizaId}`} className="btn btn-outline-secondary" onClick={() => {window.location.href=`/editCovidLab/${dbCovidLab.analizaId}`}}>Edit</Link></td>
+          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Analizen-Covid "${dbCovidLab.analizaId}"? `)) deleteCovidLab(dbCovidLab.analizaId)}} className="btn btn-secondary">Delete</button></td>
         </tr>   
           ))}
       </tbody>
@@ -80,22 +82,5 @@ export const CovidLab = () => {
   </div>
   )
 
-  function onDeleteCovidLab(deletedAnalizaId){
-    let CovidLabCopy = [...dbCovidLab];
-  
-    const index = CovidLabCopy.findIndex((covidlabCopyCovidLab, currentIndex) => {
-      if(covidlabCopyCovidLab.analizaId === deletedAnalizaId){
-        return true;
-      }
-    });
-  
-    if(index !== -1){
-      CovidLabCopy.splice(index, 1);
-    }
-  
-    setdbCovidlabs(CovidLabCopy);
-  
-    alert("Covid-Analiza u fshi me sukses!");
-  }
 
 }

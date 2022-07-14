@@ -31,36 +31,25 @@ export const Userat = () => {
     .then(response => response.json())
     .then(responseFromServer => {
       console.log(responseFromServer);
-      onDeleteUser(idUser);
+      alert("Useri u fshi me sukses!");
+      getUsers();
     })
     .catch(error => {
       console.log(error);
+      alert("Ky User nuk mund te fshihet ose mund te jete ne perdorim!");
     });
 
   }
 
   useEffect(getUsers,[]);
 
-  function checkInfermier(){
-    const roli = (localStorage.getItem("user_role"));
-    if (roli == "Infermier"){
-      return true;
-    }
-  }
-
-  function checkAdmin(){
-    const roli = (localStorage.getItem("user_role"));
-    if (roli == "Admin"){
-      return true;
-    }
-  }
 
   return (
     <div className='table-responsive mt-1 mx-5' style={{paddingLeft: "13%"}}>
       <h3>Users</h3>
     <table className='table table-striped'>
       <thead>
-        <tr className="table-success">
+        <tr className="table" style={{backgroundColor: "#A2BFC8"}}>
           <th scope='col'>ID_User (PK)</th>
           <th scope='col'>Emri</th>
           <th scope='col'>Mbiemri</th>
@@ -69,7 +58,7 @@ export const Userat = () => {
           <th scope='col'>Password</th>
           <th scope='col'>Nr Tel</th>
           <th> </th>
-          <th><Link to="/addUser" onClick={() => {window.location.href="/addUser"}} className="btn btn-primary">Shto User</Link> </th>
+          <th><Link to="/addUser" onClick={() => {window.location.href="/addUser"}} className="btn btn-secondary costum-btn">Shto User</Link> </th>
         </tr>
       </thead>
       <tbody>
@@ -82,8 +71,8 @@ export const Userat = () => {
             <td>{dbUsers.email}</td>
             <td>{dbUsers.password}</td>
             <td>{dbUsers.nrtelefonit}</td>
-          <td><Link to={`/editUser/${dbUsers.idUser}`} className="btn btn-outline-success" onClick={() => {window.location.href=`/editUser/${dbUsers.idUser}`}}>Edit</Link></td>
-          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Userin "${dbUsers.idUser}"? `)) deleteUser(dbUsers.idUser)}} className="btn btn-danger">Delete</button></td>
+          <td><Link to={`/editUser/${dbUsers.idUser}`} className="btn btn-outline-secondary" onClick={() => {window.location.href=`/editUser/${dbUsers.idUser}`}}>Edit</Link></td>
+          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Userin "${dbUsers.idUser}"? `)) deleteUser(dbUsers.idUser)}} className="btn btn-secondary">Delete</button></td>
         </tr>   
           ))}
       </tbody>
@@ -93,22 +82,5 @@ export const Userat = () => {
   </div>
   )
 
-  function onDeleteUser(deletedIdUser){
-    let usersCopy = [...dbUsers];
-  
-    const index = usersCopy.findIndex((usersCopyUser, currentIndex) => {
-      if(usersCopyUser.idUser === deletedIdUser){
-        return true;
-      }
-    });
-  
-    if(index !== -1){
-      usersCopy.splice(index, 1);
-    }
-  
-    setdbUsers(usersCopy);
-  
-    alert("Useri u fshi me sukses!");
-  }
 
 }

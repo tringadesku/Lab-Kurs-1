@@ -32,10 +32,12 @@ export const Pacientat = () => {
     .then(response => response.json())
     .then(responseFromServer => {
       console.log(responseFromServer);
-      onDeletePacienti(idPacienti);
+      alert("Pacienti u fshi me sukses!");
+      getPacientat();
     })
     .catch(error => {
       console.log(error);
+      alert("Ky pacient nuk mund te fshihet ose mund te jete ne perdorim!");
     });
 
   }
@@ -47,7 +49,7 @@ export const Pacientat = () => {
       <h3>Pacientat</h3>
     <table className='table table-striped'>
       <thead>
-        <tr className="table-success">
+        <tr className="table" style={{backgroundColor: "#A2BFC8"}}>
           <th scope='col'>Pacienti ID (PK)</th>
           <th scope='col'>Emri</th>
           <th scope='col'>Mbiemri</th>
@@ -60,7 +62,7 @@ export const Pacientat = () => {
           <th scope='col'>Alergji</th>
           <th scope='col'>Nr Tel</th>
           <th> </th>
-          <th><Link to="/addPacienti" onClick={() => {window.location.href="/addPacienti"}} className="btn btn-primary">Regjistro New</Link> </th>
+          <th><Link to="/addPacienti" onClick={() => {window.location.href="/addPacienti"}} className="btn btn-secondary custom-btn">Regjistro New</Link> </th>
         </tr>
       </thead>
       <tbody>
@@ -77,8 +79,8 @@ export const Pacientat = () => {
             <td>{dbPacientat.tipiGjakut}</td>
             <td>{dbPacientat.alergji}</td>
             <td>{dbPacientat.nrtelefonit}</td>
-          <td><Link to={`/editPacienti/${dbPacientat.idPacienti}`} className="btn btn-outline-success" onClick={() => {window.location.href=`/editPacienti/${dbPacientat.idPacienti}`}}>Edit</Link></td>
-          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Pacientin "${dbPacientat.idPacienti}"? `)) deletePacienti(dbPacientat.idPacienti)}} className="btn btn-danger">Delete</button></td>
+          <td><Link to={`/editPacienti/${dbPacientat.idPacienti}`} className="btn btn-outline-secondary" onClick={() => {window.location.href=`/editPacienti/${dbPacientat.idPacienti}`}}>Edit</Link></td>
+          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Pacientin "${dbPacientat.idPacienti}"? `)) deletePacienti(dbPacientat.idPacienti)}} className="btn btn-secondary">Delete</button></td>
         </tr>   
           ))}
       </tbody>
@@ -88,23 +90,5 @@ export const Pacientat = () => {
   </div>
   )
 
-
-  function onDeletePacienti(deletedIdPacienti){
-    let pacientatCopy = [...dbPacientat];
-  
-    const index = pacientatCopy.findIndex((pacientatCopyPacienti, currentIndex) => {
-      if(pacientatCopyPacienti.roomNr === deletedIdPacienti){
-        return true;
-      }
-    });
-  
-    if(index !== -1){
-      pacientatCopy.splice(index, 1);
-    }
-  
-    setdbPacientat(pacientatCopy);
-  
-    alert("Pacienti u fshi me sukses!");
-  }
 
 }

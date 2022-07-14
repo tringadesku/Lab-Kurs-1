@@ -7,7 +7,7 @@ namespace Hospital_Management_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Admin")]
+    [Authorize]
     public class ActivityLogUserController : ControllerBase
     {
         private readonly draft1Context _dataContext;

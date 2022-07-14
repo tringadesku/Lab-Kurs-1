@@ -32,10 +32,12 @@ export const Laboratori = () => {
     .then(response => response.json())
     .then(responseFromServer => {
       console.log(responseFromServer);
-      onDeleteLaboratori(nrAnalizes); 
+      alert("Analiza u fshi me sukses!");
+      getLaboratori();
     })
     .catch(error => {
       console.log(error);
+      alert("Kjo analize nuk mund te fshihet!");
     });
 
   }
@@ -47,14 +49,14 @@ export const Laboratori = () => {
       <h3>Laboratori</h3>
     <table className='table table-striped'>
       <thead>
-        <tr className="table-success">
+        <tr className="table"  style={{backgroundColor: "#A2BFC8"}}>
         <th scope='col'>Nr. Analizes (PK)</th>
           <th scope='col'>Id User Laboranti</th> 
           <th scope='col'>Id Pacienti</th>
           <th scope='col'>Data</th>
           <th scope='col'>Lloji</th>
           <th></th>
-          <th><Link to="/addLaboratori" onClick={() => {window.location.href="/addLaboratori"}} className="btn btn-primary">Shto Analize</Link> </th>
+          <th><Link to="/addLaboratori" onClick={() => {window.location.href="/addLaboratori"}} className="btn btn-secondary custom-btn">Shto Analize</Link> </th>
         </tr>
       </thead>
       <tbody>
@@ -65,8 +67,8 @@ export const Laboratori = () => {
           <td>{dbLaboratorat.idPacienti}</td>
           <td>{moment.utc(dbLaboratorat.data).format('MM/DD/YY')}</td>
           <td>{dbLaboratorat.lloji}</td>
-          <td><Link to={`/editLaboratori/${dbLaboratorat.nrAnalizes}`} className="btn btn-outline-success" onClick={() => {window.location.href=`/editLaboratori/${dbLaboratorat.nrAnalizes}`}}>Edit</Link></td>
-          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Analizen "${dbLaboratorat.nrAnalizes}"? `)) deleteLaboratori(dbLaboratorat.nrAnalizes)}} className="btn btn-danger">Delete</button></td>
+          <td><Link to={`/editLaboratori/${dbLaboratorat.nrAnalizes}`} className="btn btn-outline-secondary" onClick={() => {window.location.href=`/editLaboratori/${dbLaboratorat.nrAnalizes}`}}>Edit</Link></td>
+          <td><button type="button" onClick={() => {if(window.confirm(`A jeni i sigurt qe doni te fshini Analizen "${dbLaboratorat.nrAnalizes}"? `)) deleteLaboratori(dbLaboratorat.nrAnalizes)}} className="btn btn-secondary">Delete</button></td>
         </tr>   
           ))}
       </tbody>
@@ -76,22 +78,5 @@ export const Laboratori = () => {
   </div>
   )
 
-  function onDeleteLaboratori(deletedIdLaboratori){
-    let laboratoriCopy = [...dbLaboratorat];
-  
-    const index = laboratoriCopy.findIndex((laboratoriCopyLaboratori, currentIndex) => {
-      if(laboratoriCopyLaboratori.nrAnalizes === deletedIdLaboratori){
-        return true;
-      }
-    });
-  
-    if(index !== -1){
-      laboratoriCopy.splice(index, 1);
-    }
-  
-    setdbLaboratorat(laboratoriCopy);
-  
-    alert("Analiza u fshi me sukses!");
-  }
 
 }
