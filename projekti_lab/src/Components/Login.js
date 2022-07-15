@@ -78,16 +78,7 @@ if(Object.keys(formErrors).length===0 && isSubmit){
       }else if(values.password.length<5){
         errors.password="Password must be at least 5 characters!"
       }
-      /*else if(formData.useState===null){
-        errors.email = "E-mail is required!";
-        errors.password = "Password is required!";
-      }*/
-//if(inputUser.email===""&& inputUser.password===""){
- 
-//errors.email="nuk bon";
-//errors.password="sboon";
 
-//};
 
 
 return errors;

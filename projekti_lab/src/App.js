@@ -43,10 +43,10 @@ import { CovidLab } from "./Components/CovidLab";
 import { AddCovidLab } from "./Components/AddCovidLab";
 import { EditCovidLab } from "./Components/EditCovidLab";
 import {ActivityLog} from "./Components/ActivityLog"
+import {ProtectedRoutes} from "./Services/protectedRoutes";
 
 
 function App(){
-  const usertoken = (localStorage.getItem("usertoken"));
 
   return(
     <div className="App">
@@ -55,17 +55,12 @@ function App(){
         <Switch>
          <Route exact path="/" component={Login}/>
           <div>
+          <ProtectedRoutes>
           <Nav />
           <Route exact path="/home" component={Home}/>
-          <Route exact path="/dhomat" component={Dhomat}/>
-          <Route exact path="/addDhoma" component={AddDhoma}/>
-          <Route path="/editDhoma/:id" component={EditDhoma}/>
           <Route path="/pacientat" component={Pacientat}/>
           <Route exact path="/addPacienti" component={AddPacienti}/>
           <Route path="/editPacienti/:id" component={EditPacienti}/>
-          <Route path="/users" component={Userat}/>
-          <Route exact path="/addUser" component={AddUser}/>
-          <Route path="/editUser/:id" component={EditUser}/>
           <Route path="/infuzionet" component={Infuzionet}/>
           <Route exact path="/addInfuzioni" component={AddInfuzioni}/>
           <Route path="/editInfuzioni/:id" component={EditInfuzioni}/>
@@ -96,7 +91,14 @@ function App(){
           <Route path="/CovidLab" component={CovidLab}/>
           <Route exact path="/addCovidLab" component={AddCovidLab}/>
           <Route path="/editCovidLab/:id" component={EditCovidLab}/>
-          <Route exact path="/activitylog" component={ActivityLog}/> 
+            <Route exact path="/dhomat" component={Dhomat}/>
+            <Route exact path="/addDhoma" component={AddDhoma}/>
+            <Route path="/editDhoma/:id" component={EditDhoma}/>
+            <Route exact path="/activitylog" component={ActivityLog}/>
+            <Route path="/users" component={Userat}/>
+            <Route exact path="/addUser" component={AddUser}/>
+            <Route path="/editUser/:id" component={EditUser}/> 
+          </ProtectedRoutes>
           </div>
         </Switch>
       </Router>
