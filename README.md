@@ -2,7 +2,7 @@
 
 This is a school group project for "Lab Course 1". 
 
-The Hospital Management System provides a comprehensive platform for all hospital staff to save and manage data related to patients, staff, and inventory. With the Hospital Management System, hospital staff can manage appointments, patient records, medical histories, and billing information, all from one centralized location.
+The Hospital Management System provides a comprehensive platform for all hospital staff to save and manage data related to patients, staff, and inventory. With the Hospital Management System, hospital staff can manage appointments, patient records, medical histories, billing information and other records, all from one centralized location.
 
 The Project includes two folders:
 
